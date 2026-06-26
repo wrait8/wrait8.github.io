@@ -684,8 +684,7 @@
             padding-bottom: 0;
             transform: translateY(0);
             margin-right: auto;
-            /* margin-left: -40%; */
-            display: block;
+            margin-left: -40%;
         }
 
         .blog-preview-posts {
@@ -731,6 +730,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+        }
+
+        .blog-preview-card .preview-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .blog-preview-card .preview-image .placeholder-icon {
             font-size: 3rem;
             opacity: 0.3;
         }
@@ -987,24 +996,6 @@
         }
 
         /* responsive */
-        @media (max-width: 920px) {
-            .blog-preview-ascii {
-                display: none;
-            }
-            .blog-preview-posts {
-                max-width: 100%;
-                margin-left: 0;
-                width: 100%;
-                align-items: center;
-            }
-            .blog-preview-grid {
-                max-width: 100%;
-            }
-            .blog-preview-posts .view-all-link {
-                align-self: center;
-            }
-        }
-
         @media (max-width: 700px) {
             .hero-content {
                 padding: 1.8rem 1.5rem;
@@ -1043,6 +1034,21 @@
                 align-items: center;
                 gap: 1.5rem;
                 min-height: auto;
+            }
+            .blog-preview-ascii {
+                display: none;
+            }
+            .blog-preview-posts {
+                max-width: 100%;
+                margin-left: 0;
+                width: 100%;
+                align-items: center;
+            }
+            .blog-preview-grid {
+                max-width: 100%;
+            }
+            .blog-preview-posts .view-all-link {
+                align-self: center;
             }
             .community-grid {
                 grid-template-columns: 1fr;
@@ -1393,7 +1399,7 @@
             <div class="section-bg"></div>
             <div class="blog-preview-container">
                 <div class="blog-preview-ascii">
- ⠀⠀⠀⠀⠀⠀⠀⠀⠀    ⠀⠀⣀⣤⡾⠿⢿⡀⠀⠀⠀⠀⣠⣶⣿⣷⠀⠀⠀⠀
+ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⡾⠿⢿⡀⠀⠀⠀⠀⣠⣶⣿⣷⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⢀⣴⣦⣴⣿⡋⠀⠀⠈⢳⡄⠀⢠⣾⣿⠁⠈⣿⡆⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⣰⣿⣿⠿⠛⠉⠉⠁⠀⠀⠀⠹⡄⣿⣿⣿⠀⠀⢹⡇⠀⠀⠀
     ⠀⠀⠀⠀⣠⣾⡿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⣰⣏⢻⣿⣿⡆⠀⠸⣿⠀⠀⠀
@@ -1532,52 +1538,4 @@
         // ===== BLOG PREVIEW =====
         async function fetchBlogPosts() {
             try {
-                const response = await fetch('Blog/posts.json');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch posts.json');
-                }
-                const posts = await response.json();
-                return posts;
-            } catch (error) {
-                console.error('Error fetching blog posts:', error);
-                return [];
-            }
-        }
-
-        async function renderBlogPreview() {
-            const grid = document.getElementById('blogPreviewGrid');
-            const posts = await fetchBlogPosts();
-
-            if (posts.length === 0) {
-                grid.innerHTML = `
-                    <div style="text-align:center; padding:1.5rem; color:rgba(200,210,215,0.2);">
-                        <p style="font-size:2rem; margin-bottom:0.5rem;">📝</p>
-                        <p>No posts yet</p>
-                    </div>
-                `;
-                return;
-            }
-
-            // Get only the most recent post
-            const recentPost = posts.slice(0, 1);
-
-            grid.innerHTML = recentPost.map(post => `
-                <div class="blog-preview-card" onclick="window.location.href='Blog/'">
-                    <div class="preview-image">${post.icon || '📄'}</div>
-                    <div class="preview-body">
-                        <span class="preview-tag">${post.tag || 'General'}</span>
-                        <h3>${post.title}</h3>
-                        <div class="preview-excerpt">${post.excerpt || ''}</div>
-                        <div class="preview-date">${post.displayDate || post.date || ''}</div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        renderBlogPreview();
-
-        console.log('📁 WRAITH site loaded successfully');
-        console.log('   Features: Timeline, Community, Blog Preview');
-    </script>
-</body>
-</html>
+                const response
