@@ -401,6 +401,7 @@
             height: auto;
             margin: 1rem 0;
             border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 4px;
         }
 
         .post-modal .modal-content .post-body a {
@@ -898,6 +899,18 @@
         function openPost(post) {
             const modal = document.getElementById('postModal');
             const content = document.getElementById('postContent');
+
+            // Configure marked to render images
+            const renderer = new marked.Renderer();
+            renderer.image = function(href, title, text) {
+                return `<img src="${href}" alt="${text || ''}" title="${title || ''}" />`;
+            };
+
+            marked.setOptions({
+                renderer: renderer,
+                breaks: true,
+                gfm: true
+            });
 
             const renderedContent = marked.parse(post.content);
 
