@@ -2,7 +2,6 @@
 date: 2026-06-28
 tags: Wi-Fi Hacking, Hardware
 icon: 🍍
-cover: https://media.printables.com/media/prints/414795/images/3442031_8f42ed85-56c9-47aa-866b-b8e509e7ae9e/thumbs/inside/1280x960/jpeg/img_7380.webp
 ---
 
 
