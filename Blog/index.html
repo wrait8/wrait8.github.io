@@ -38,7 +38,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('Images/bg colors effect.png') center/cover no-repeat;
+            background: url('../Images/bg colors effect.png') center/cover no-repeat;
             opacity: 0.5;
             mix-blend-mode: screen;
             pointer-events: none;
@@ -634,7 +634,7 @@
         <div class="page-bg"></div>
 
         <section class="hero">
-            <a href="index.html" class="back-link">← back</a>
+            <a href="../index.html" class="back-link">← back</a>
             <div class="hero-content">
                 <h1>// blog</h1>
                 <p>news, updates &amp; research</p>
@@ -703,14 +703,14 @@
     <script>
         // ===== CONFIGURATION =====
         const GITHUB_USERNAME = 'wrait8';
-        const GITHUB_REPO = 'wraith-site';
-        const BLOG_FOLDER = 'Blog';
+        const GITHUB_REPO = 'wrait8.github.io';
+        const POSTS_FOLDER = 'Posts';
 
         // ===== FETCH POSTS FROM GITHUB =====
         async function fetchPosts() {
             try {
                 const response = await fetch(
-                    `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${BLOG_FOLDER}`
+                    `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${POSTS_FOLDER}`
                 );
 
                 if (!response.ok) {
@@ -831,9 +831,9 @@
                     <div class="empty-state">
                         <div class="empty-icon">📝</div>
                         <h3>No posts yet</h3>
-                        <p>Add <code>.md</code> files to the <code>${BLOG_FOLDER}/</code> folder in your repository.</p>
+                        <p>Add <code>.md</code> files to the <code>${POSTS_FOLDER}/</code> folder in your repository.</p>
                         <p style="margin-top: 0.5rem; font-size: 0.8rem; color: rgba(200,210,215,0.15);">
-                            Example: <code>Blog/2026-06-26-my-post.md</code>
+                            Example: <code>Posts/2026-06-26-my-post.md</code>
                         </p>
                     </div>
                 `;
@@ -900,7 +900,7 @@
 
         init();
         console.log('📁 WRAITH Blog loaded successfully');
-        console.log(`   Reading posts from: ${GITHUB_USERNAME}/${GITHUB_REPO}/${BLOG_FOLDER}/`);
+        console.log(`   Reading posts from: ${GITHUB_USERNAME}/${GITHUB_REPO}/${POSTS_FOLDER}/`);
         console.log('   Format: Markdown (.md)');
     </script>
 </body>
