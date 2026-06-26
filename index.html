@@ -1535,7 +1535,90 @@
             timelineScroll.scrollLeft = touchScrollLeft - walk;
         });
 
-        // ===== BLOG PREVIEW =====
-        async function fetchBlogPosts() {
-            try {
-                const response
+// ===== BLOG PREVIEW =====
+async function fetchBlogPosts() {
+    try {
+        const response = await fetch('Blog/posts.json');
+        if (!response.ok) {
+            throw new Error('Failed to fetch posts.json');
+        }
+        const posts = await response.json();
+        
+        // Fetch the full markdown content to get cover images
+        const postsWithImages = await Promise.all(
+            posts.map(async (postInfo) => {
+                try {
+                    const url = `https://raw.githubusercontent.com/wrait8/wrait8.github.io/main/Posts/${postInfo.filename}`;
+                    const contentResponse = await fetch(url);
+                    if (contentResponse.ok) {
+                        const content = await contentResponse.text();
+                        // Extract cover image from frontmatter
+                        let coverImage = null;
+                        const frontmatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
+                        if (frontmatterMatch) {
+                            const fmLines = frontmatterMatch[1].split('\n');
+                            for (const line of fmLines) {
+                                const [key, ...valueParts] = line.split(':');
+                                if (key && valueParts.length > 0) {
+                                    const value = valueParts.join(':').trim();
+                                    if (key.trim().toLowerCase() === 'cover') {
+                                        coverImage = value;
+                                    }
+                                }
+                            }
+                        }
+                        // If no cover in frontmatter, try to extract first image from content
+                        if (!coverImage) {
+                            const imageMatch = content.match(/!\[.*?\]\((.*?)\)/);
+                            if (imageMatch) {
+                                coverImage = imageMatch[1];
+                            }
+                        }
+                        return { ...postInfo, coverImage };
+                    }
+                    return { ...postInfo, coverImage: null };
+                } catch (err) {
+                    console.error(`Error fetching ${postInfo.filename}:`, err);
+                    return { ...postInfo, coverImage: null };
+                }
+            })
+        );
+        
+        return postsWithImages;
+    } catch (error) {
+        console.error('Error fetching blog posts:', error);
+        return [];
+    }
+}
+
+async function renderBlogPreview() {
+    const grid = document.getElementById('blogPreviewGrid');
+    const posts = await fetchBlogPosts();
+
+    if (posts.length === 0) {
+        grid.innerHTML = `
+            <div style="text-align:center; padding:1.5rem; color:rgba(200,210,215,0.2);">
+                <p style="font-size:2rem; margin-bottom:0.5rem;">📝</p>
+                <p>No posts yet</p>
+            </div>
+        `;
+        return;
+    }
+
+    // Get only the most recent post
+    const recentPost = posts.slice(0, 1);
+
+    grid.innerHTML = recentPost.map(post => `
+        <div class="blog-preview-card" onclick="window.location.href='Blog/'">
+            <div class="preview-image">
+                ${post.coverImage ? `<img src="${post.coverImage}" alt="${post.title}" style="width:100%;height:100%;object-fit:cover;" />` : `<span style="font-size:3rem;opacity:0.3;">${post.icon || '📄'}</span>`}
+            </div>
+            <div class="preview-body">
+                <span class="preview-tag">${post.tag || 'General'}</span>
+                <h3>${post.title}</h3>
+                <div class="preview-excerpt">${post.excerpt || ''}</div>
+                <div class="preview-date">${post.displayDate || post.date || ''}</div>
+            </div>
+        </div>
+    `).join('');
+}
