@@ -1,10 +1,9 @@
-```markdown
 ---
 date: 2026-06-28
 tags: Wi-Fi Hacking, Hardware
 icon: 🍍
 ---
-
+![Pwnagotchi Banner](https://raw.githubusercontent.com/wrait8/wrait8.github.io/main/Images/pwnagotchi-banner.png)
 # Building Your Own Pwnagotchi: The AI-Powered Wi-Fi Capturing Companion
 
 A Pwnagotchi is a Raspberry Pi Zero device that uses machine learning to capture Wi-Fi handshakes more efficiently. It's like a Tamagotchi pet that needs to capture WPA handshakes to survive, with a cute face that shows its mood on a small e-ink display.
@@ -244,4 +243,4 @@ http://10.0.0.2:8080/api/v1/status
 ---
 
 *This tutorial is for educational purposes only. Always obtain proper authorization before testing wireless security.*
-```
+
