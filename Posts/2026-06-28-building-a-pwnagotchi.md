@@ -245,7 +245,3 @@ http://10.0.0.2:8080/api/v1/status
 
 *This tutorial is for educational purposes only. Always obtain proper authorization before testing wireless security.*
 ```
-
-3. **Check that code blocks use triple backticks** with the language specified (e.g., ` ```toml`, ` ```bash`, ` ```python`)
-
-4. **Save the file** and refresh your blog page
