@@ -1,4 +1,3 @@
-```markdown
 ---
 date: 2026-06-28
 tags: Wi-Fi Hacking, Hardware
@@ -251,4 +250,4 @@ http://10.0.0.2:8080/api/v1/status
 - [Pwnagotchi Community](https://discord.gg/pwnagotchi)
 - [Raspberry Pi Zero Documentation](https://www.raspberrypi.com/documentation/computers/raspberry-pi-zero.html)
 - [Bettercap Framework](https://www.bettercap.org/)
-```
+
