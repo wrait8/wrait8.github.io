@@ -1,10 +1,3 @@
----
-date: 2026-06-28
-tags: Wi-Fi Hacking, Hardware
-icon: 🍍
-cover: https://media.printables.com/media/prints/414795/images/3442036_f7299702-3159-4121-b7f3-718760ef5498/thumbs/inside/1280x960/jpeg/img_7367.webp
----
-
 # Building Your Own Pwnagotchi: The AI-Powered Wi-Fi Capturing Companion
 
 ![Pwnagotchi in Action](https://media.printables.com/media/prints/414795/images/3442036_f7299702-3159-4121-b7f3-718760ef5498/thumbs/inside/1280x960/jpeg/img_7367.webp)
