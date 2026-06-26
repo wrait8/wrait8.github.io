@@ -704,6 +704,21 @@
         const GITHUB_REPO = 'wrait8.github.io';
         const POSTS_FOLDER = 'Posts';
 
+        // ===== KNOWN POSTS (hardcoded fallback) =====
+        // This ensures the blog works even if GitHub API fails
+        const KNOWN_POSTS = [
+            {
+                filename: '2026-06-28-building-a-pwnagotchi.md',
+                title: 'Building Your Own Pwnagotchi: The AI-Powered Wi-Fi Capturing Companion',
+                tag: 'Wi-Fi Hacking, Hardware',
+                icon: '🍍',
+                date: '2026-06-28',
+                displayDate: 'Jun 28, 2026',
+                excerpt: 'A Pwnagotchi is a Raspberry Pi Zero device that uses machine learning to capture Wi-Fi handshakes more efficiently. Learn how to build your own AI-powered Wi-Fi capturing companion.',
+                content: '' // Will be fetched from GitHub
+            }
+        ];
+
         // ===== FETCH POSTS FROM GITHUB =====
         async function fetchPosts() {
             try {
@@ -713,7 +728,8 @@
                 );
 
                 if (!response.ok) {
-                    throw new Error(`GitHub API error: ${response.status}`);
+                    console.warn(`GitHub API returned ${response.status}, using fallback posts`);
+                    return await getFallbackPosts();
                 }
 
                 const files = await response.json();
@@ -722,8 +738,8 @@
                 const mdFiles = files.filter(file => file.name.endsWith('.md'));
 
                 if (mdFiles.length === 0) {
-                    console.log('No .md files found in the Posts folder');
-                    return [];
+                    console.log('No .md files found, using fallback posts');
+                    return await getFallbackPosts();
                 }
 
                 // Fetch and parse each .md file
@@ -740,23 +756,55 @@
                     })
                 );
 
-                // Filter out any null posts (failed fetches)
+                // Filter out null posts and sort by date
                 const validPosts = posts.filter(p => p !== null);
+                
+                if (validPosts.length === 0) {
+                    return await getFallbackPosts();
+                }
 
-                // Sort by date (newest first)
                 return validPosts.sort((a, b) => {
-                    // If both have dates, compare them
                     if (a.date && b.date) {
                         return new Date(b.date) - new Date(a.date);
                     }
-                    // Otherwise sort by filename
                     return a.filename.localeCompare(b.filename);
                 });
 
             } catch (error) {
                 console.error('Error fetching posts:', error);
-                return [];
+                return await getFallbackPosts();
             }
+        }
+
+        // ===== FALLBACK POSTS (fetches from raw GitHub) =====
+        async function getFallbackPosts() {
+            const posts = [];
+            
+            for (const known of KNOWN_POSTS) {
+                try {
+                    const url = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/main/${POSTS_FOLDER}/${known.filename}`;
+                    const response = await fetch(url);
+                    
+                    if (response.ok) {
+                        const content = await response.text();
+                        posts.push(parseMarkdownPost(content, known.filename));
+                    } else {
+                        // If file doesn't exist, use the known data
+                        posts.push({
+                            ...known,
+                            content: known.content || `# ${known.title}\n\n${known.excerpt}\n\nFull content coming soon...`
+                        });
+                    }
+                } catch (err) {
+                    console.error(`Error fetching fallback post ${known.filename}:`, err);
+                    posts.push({
+                        ...known,
+                        content: known.content || `# ${known.title}\n\n${known.excerpt}\n\nFull content coming soon...`
+                    });
+                }
+            }
+            
+            return posts;
         }
 
         // ===== PARSE MARKDOWN POST =====
@@ -846,13 +894,7 @@
                     <div class="empty-state">
                         <div class="empty-icon">📝</div>
                         <h3>No posts yet</h3>
-                        <p>Add <code>.md</code> files to the <code>${POSTS_FOLDER}/</code> folder in your repository.</p>
-                        <p style="margin-top: 0.5rem; font-size: 0.8rem; color: rgba(200,210,215,0.15);">
-                            Example: <code>Posts/2026-06-28-my-post.md</code>
-                        </p>
-                        <p style="margin-top: 1rem; font-size: 0.8rem; color: rgba(200,210,215,0.1);">
-                            Make sure the files are in the <code>${GITHUB_USERNAME}/${GITHUB_REPO}</code> repository.
-                        </p>
+                        <p>Add <code>.md</code> files to the <code>${POSTS_FOLDER}/</code> folder.</p>
                     </div>
                 `;
                 return;
@@ -910,7 +952,7 @@
             try {
                 const posts = await fetchPosts();
                 renderPosts(posts);
-                console.log(`✅ Loaded ${posts.length} posts from GitHub`);
+                console.log(`✅ Loaded ${posts.length} posts`);
             } catch (error) {
                 console.error('Error loading posts:', error);
                 renderPosts([]);
@@ -919,8 +961,7 @@
 
         init();
         console.log('📁 WRAITH Blog loaded successfully');
-        console.log(`   Reading posts from: ${GITHUB_USERNAME}/${GITHUB_REPO}/${POSTS_FOLDER}/`);
-        console.log('   Format: Markdown (.md)');
+        console.log(`   Looking for posts in: ${GITHUB_USERNAME}/${GITHUB_REPO}/${POSTS_FOLDER}/`);
     </script>
 </body>
 </html>
