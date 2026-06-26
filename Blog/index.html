@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WRAITH · Blog</title>
-    <!-- Google Fonts: Space Grotesk + Space Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
@@ -135,28 +134,6 @@
             margin: 0 auto;
         }
 
-        .blog-header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
-
-        .blog-header h2 {
-            font-family: 'Space Mono', monospace;
-            font-size: clamp(1.8rem, 3vw, 2.5rem);
-            color: #ffffff;
-            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
-            letter-spacing: 0.04em;
-            margin-bottom: 0.5rem;
-        }
-
-        .blog-header p {
-            color: rgba(200, 210, 215, 0.5);
-            font-size: 1rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            font-weight: 300;
-        }
-
         .blog-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -184,7 +161,7 @@
 
         .blog-card .blog-image {
             width: 100%;
-            height: 200px;
+            height: 220px;
             background: #121212;
             position: relative;
             overflow: hidden;
@@ -193,16 +170,16 @@
             justify-content: center;
         }
 
-        .blog-card .blog-image .placeholder-icon {
-            font-size: 4rem;
-            opacity: 0.2;
-            color: rgba(255, 255, 255, 0.15);
-        }
-
         .blog-card .blog-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .blog-card .blog-image .placeholder-icon {
+            font-size: 4rem;
+            opacity: 0.2;
+            color: rgba(255, 255, 255, 0.15);
         }
 
         .blog-card .blog-image .blog-date-badge {
@@ -327,14 +304,6 @@
             color: #ffffff;
         }
 
-        .post-modal .modal-content .post-cover {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
         .post-modal .modal-content .post-tag {
             display: inline-block;
             font-family: 'Space Mono', monospace;
@@ -425,6 +394,13 @@
             margin: 0.8rem 0;
             color: rgba(200, 210, 215, 0.5);
             font-style: italic;
+        }
+
+        .post-modal .modal-content .post-body img {
+            max-width: 100%;
+            height: auto;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .post-modal .modal-content .post-body a {
@@ -590,9 +566,6 @@
             .post-modal .modal-content h1 {
                 font-size: 1.5rem;
             }
-            .post-modal .modal-content .post-cover {
-                height: 180px;
-            }
             .footer-container {
                 flex-direction: column;
                 gap: 2rem;
@@ -637,9 +610,6 @@
             .post-modal .modal-content h1 {
                 font-size: 1.2rem;
             }
-            .post-modal .modal-content .post-cover {
-                height: 140px;
-            }
             .ascii-art {
                 font-size: 0.6rem;
                 white-space: pre-wrap;
@@ -662,11 +632,6 @@
 
         <section class="blog-section">
             <div class="blog-container">
-                <div class="blog-header">
-                    <h2>latest posts</h2>
-                    <p>from the wraith collective</p>
-                </div>
-
                 <div class="blog-grid" id="blogGrid">
                     <div class="loading">⏳ loading posts...</div>
                 </div>
@@ -739,7 +704,7 @@
                                 const contentResponse = await fetch(url);
                                 if (contentResponse.ok) {
                                     const content = await contentResponse.text();
-                                    return parseMarkdownPost(content, postInfo.filename, postInfo);
+                                    return parseMarkdownPost(content, postInfo.filename);
                                 } else {
                                     return {
                                         ...postInfo,
@@ -796,7 +761,7 @@
         }
 
         // ===== PARSE MARKDOWN POST =====
-        function parseMarkdownPost(content, filename, postInfo) {
+        function parseMarkdownPost(content, filename) {
             // Remove frontmatter (the --- delimited section at the start)
             let cleanContent = content;
             let frontmatter = {};
@@ -816,20 +781,12 @@
                 cleanContent = content.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
             }
 
-            // If postInfo is provided (from posts.json), use its cover
-            let cover = postInfo?.cover || frontmatter.cover || '';
-
-            // Remove the first heading (title) from content to avoid duplication
-            cleanContent = cleanContent.replace(/^#\s+.+\n/, '');
-
             const titleMatch = cleanContent.match(/^#\s+(.+)$/m);
             const title = titleMatch ? titleMatch[1] : filename.replace('.md', '');
 
             let date = new Date().toISOString().split('T')[0];
             if (frontmatter.date) {
                 date = frontmatter.date;
-            } else if (postInfo?.date) {
-                date = postInfo.date;
             } else {
                 const fileDateMatch = filename.match(/^(\d{4}-\d{2}-\d{2})/);
                 if (fileDateMatch) {
@@ -842,10 +799,9 @@
                 tag = frontmatter.tags;
             } else if (frontmatter.tag) {
                 tag = frontmatter.tag;
-            } else if (postInfo?.tag) {
-                tag = postInfo.tag;
             }
 
+            // Extract excerpt (first paragraph after title)
             let excerpt = '';
             const lines = cleanContent.split('\n');
             let foundTitle = false;
@@ -854,7 +810,7 @@
                     foundTitle = true;
                     continue;
                 }
-                if (foundTitle && line.trim() && !line.startsWith('---') && !line.startsWith('![')) {
+                if (foundTitle && line.trim() && !line.startsWith('---') && !line.startsWith('[')) {
                     excerpt = line.trim();
                     break;
                 }
@@ -866,8 +822,13 @@
             let icon = '📄';
             if (frontmatter.icon) {
                 icon = frontmatter.icon;
-            } else if (postInfo?.icon) {
-                icon = postInfo.icon;
+            }
+
+            // Extract first image URL for cover
+            let coverImage = null;
+            const imageMatch = cleanContent.match(/!\[.*?\]\((.*?)\)/);
+            if (imageMatch) {
+                coverImage = imageMatch[1];
             }
 
             const displayDate = formatDate(date);
@@ -878,10 +839,10 @@
                 excerpt,
                 content: cleanContent,
                 icon,
-                cover,
                 date: date,
                 displayDate,
-                filename
+                filename,
+                coverImage
             };
         }
 
@@ -915,7 +876,7 @@
             grid.innerHTML = posts.map(post => `
                 <div class="blog-card" onclick="openPost(${JSON.stringify(post).replace(/"/g, '&quot;')})">
                     <div class="blog-image">
-                        ${post.cover ? `<img src="${post.cover}" alt="${post.title}" />` : `<span class="placeholder-icon">${post.icon || '📄'}</span>`}
+                        ${post.coverImage ? `<img src="${post.coverImage}" alt="${post.title}" />` : `<span class="placeholder-icon">${post.icon || '📄'}</span>`}
                         <span class="blog-date-badge">${post.displayDate}</span>
                     </div>
                     <div class="blog-body">
@@ -932,17 +893,9 @@
             const modal = document.getElementById('postModal');
             const content = document.getElementById('postContent');
 
-            // Remove the first heading from the content to avoid duplication
-            let cleanContent = post.content.replace(/^#\s+.+\n/, '');
-            const renderedContent = marked.parse(cleanContent);
-
-            let coverHtml = '';
-            if (post.cover) {
-                coverHtml = `<img src="${post.cover}" alt="${post.title}" class="post-cover" />`;
-            }
+            const renderedContent = marked.parse(post.content);
 
             content.innerHTML = `
-                ${coverHtml}
                 <span class="post-tag">${post.tag}</span>
                 <div class="post-date">${post.displayDate}</div>
                 <h1>${post.title}</h1>
