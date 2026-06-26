@@ -324,28 +324,18 @@
             margin-bottom: 1rem;
         }
 
-        .post-modal .modal-content h1 {
+        .post-modal .modal-content .post-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 2rem;
             color: #ffffff;
             margin-bottom: 1.5rem;
             line-height: 1.2;
-            display: none;
         }
 
         .post-modal .modal-content .post-body {
             color: rgba(200, 210, 215, 0.85);
             font-size: 1rem;
             line-height: 1.8;
-        }
-
-        .post-modal .modal-content .post-body h1:first-of-type {
-            display: block;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
-            color: #ffffff;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
         }
 
         .post-modal .modal-content .post-body h2 {
@@ -573,7 +563,7 @@
             .post-modal .modal-content {
                 padding: 1.5rem;
             }
-            .post-modal .modal-content h1 {
+            .post-modal .modal-content .post-title {
                 font-size: 1.5rem;
             }
             .footer-container {
@@ -617,7 +607,7 @@
             .post-modal .modal-content {
                 padding: 1.2rem;
             }
-            .post-modal .modal-content h1 {
+            .post-modal .modal-content .post-title {
                 font-size: 1.2rem;
             }
             .ascii-art {
@@ -791,11 +781,12 @@
                 cleanContent = content.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
             }
 
-            // Remove the first # heading from content (we display it separately)
-            cleanContent = cleanContent.replace(/^#\s+.+\n/, '');
-
-            const titleMatch = content.match(/^#\s+(.+)$/m);
+            // Get the title from the first # heading
+            const titleMatch = cleanContent.match(/^#\s+(.+)$/m);
             const title = titleMatch ? titleMatch[1] : filename.replace('.md', '');
+
+            // Remove the first # heading from the content so it doesn't render twice
+            cleanContent = cleanContent.replace(/^#\s+.+\n/, '');
 
             let date = new Date().toISOString().split('T')[0];
             if (frontmatter.date) {
@@ -814,10 +805,9 @@
                 tag = frontmatter.tag;
             }
 
-            // Extract excerpt (first paragraph after title)
+            // Extract excerpt (first text after title)
             let excerpt = '';
             const lines = cleanContent.split('\n');
-            let foundText = false;
             for (const line of lines) {
                 if (line.trim() && !line.startsWith('![') && !line.startsWith('---') && !line.startsWith('[')) {
                     excerpt = line.trim();
@@ -907,7 +897,7 @@
             content.innerHTML = `
                 <span class="post-tag">${post.tag}</span>
                 <div class="post-date">${post.displayDate}</div>
-                <h1>${post.title}</h1>
+                <div class="post-title">${post.title}</div>
                 <div class="post-body">${renderedContent}</div>
             `;
 
