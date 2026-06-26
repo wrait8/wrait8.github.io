@@ -7,6 +7,8 @@ cover: https://media.printables.com/media/prints/414795/images/3442036_f7299702-
 
 # Building Your Own Pwnagotchi: The AI-Powered Wi-Fi Capturing Companion
 
+![Pwnagotchi in Action](https://media.printables.com/media/prints/414795/images/3442036_f7299702-3159-4121-b7f3-718760ef5498/thumbs/inside/1280x960/jpeg/img_7367.webp)
+
 A Pwnagotchi is a Raspberry Pi Zero device that uses machine learning to capture Wi-Fi handshakes more efficiently. It's like a Tamagotchi pet that needs to capture WPA handshakes to survive, with a cute face that shows its mood on a small e-ink display.
 
 ## What is a Pwnagotchi?
@@ -255,5 +257,6 @@ http://10.0.0.2:8080/api/v1/status
 - Bettercap Framework: https://www.bettercap.org/
 
 ---
-
 This tutorial is for educational purposes only. Always obtain proper authorization before testing wireless security.
+```
+- **Post content**: Uses the markdown image tag `![]()` after the title
