@@ -1,7 +1,3 @@
-The issue is that your blog post is showing the raw frontmatter and the `config.toml` code block as visible text instead of properly parsing the Markdown. This is happening because the frontmatter (the `---` delimited section) is not being stripped correctly before rendering.
-
-Here's the fixed article content for your `Posts/2026-06-28-building-a-pwnagotchi.md` file:
-
 ```markdown
 ---
 date: 2026-06-28
