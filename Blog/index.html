@@ -819,6 +819,9 @@
             // If postInfo is provided (from posts.json), use its cover
             let cover = postInfo?.cover || frontmatter.cover || '';
 
+            // Remove the first heading (title) from content to avoid duplication
+            cleanContent = cleanContent.replace(/^#\s+.+\n/, '');
+
             const titleMatch = cleanContent.match(/^#\s+(.+)$/m);
             const title = titleMatch ? titleMatch[1] : filename.replace('.md', '');
 
@@ -929,7 +932,9 @@
             const modal = document.getElementById('postModal');
             const content = document.getElementById('postContent');
 
-            const renderedContent = marked.parse(post.content);
+            // Remove the first heading from the content to avoid duplication
+            let cleanContent = post.content.replace(/^#\s+.+\n/, '');
+            const renderedContent = marked.parse(cleanContent);
 
             let coverHtml = '';
             if (post.cover) {
