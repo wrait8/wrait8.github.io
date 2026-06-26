@@ -765,6 +765,7 @@
             // Remove frontmatter (the --- delimited section at the start)
             let cleanContent = content;
             let frontmatter = {};
+            let coverImage = null;
             
             // Check if content has frontmatter
             const frontmatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
@@ -774,7 +775,12 @@
                 for (const line of fmLines) {
                     const [key, ...valueParts] = line.split(':');
                     if (key && valueParts.length > 0) {
-                        frontmatter[key.trim()] = valueParts.join(':').trim();
+                        const value = valueParts.join(':').trim();
+                        frontmatter[key.trim()] = value;
+                        // If key is 'cover', store it as the cover image
+                        if (key.trim().toLowerCase() === 'cover') {
+                            coverImage = value;
+                        }
                     }
                 }
                 // Remove frontmatter from content
@@ -823,11 +829,12 @@
                 icon = frontmatter.icon;
             }
 
-            // Extract first image URL for cover
-            let coverImage = null;
-            const imageMatch = cleanContent.match(/!\[.*?\]\((.*?)\)/);
-            if (imageMatch) {
-                coverImage = imageMatch[1];
+            // If no cover image found in frontmatter, try to extract from markdown
+            if (!coverImage) {
+                const imageMatch = cleanContent.match(/!\[.*?\]\((.*?)\)/);
+                if (imageMatch) {
+                    coverImage = imageMatch[1];
+                }
             }
 
             const displayDate = formatDate(date);
