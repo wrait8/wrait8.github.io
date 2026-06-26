@@ -694,175 +694,46 @@
         // ===== FETCH POSTS =====
         async function fetchPosts() {
             try {
+                // Fetch posts.json which contains all post metadata
                 const listResponse = await fetch('posts.json');
-                if (listResponse.ok) {
-                    const postList = await listResponse.json();
-                    
-                    const posts = await Promise.all(
-                        postList.map(async (postInfo) => {
-                            try {
-                                const url = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/main/${POSTS_FOLDER}/${postInfo.filename}`;
-                                const contentResponse = await fetch(url);
-                                if (contentResponse.ok) {
-                                    const content = await contentResponse.text();
-                                    return parseMarkdownPost(content, postInfo.filename);
-                                } else {
-                                    return {
-                                        ...postInfo,
-                                        content: postInfo.content || `# ${postInfo.title}\n\n${postInfo.excerpt}`
-                                    };
-                                }
-                            } catch (err) {
-                                console.error(`Error fetching ${postInfo.filename}:`, err);
+                if (!listResponse.ok) {
+                    throw new Error('Failed to fetch posts.json');
+                }
+                
+                const postList = await listResponse.json();
+                
+                // Fetch the full markdown content for each post
+                const posts = await Promise.all(
+                    postList.map(async (postInfo) => {
+                        try {
+                            const url = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/main/${POSTS_FOLDER}/${postInfo.filename}`;
+                            const contentResponse = await fetch(url);
+                            if (contentResponse.ok) {
+                                const content = await contentResponse.text();
                                 return {
                                     ...postInfo,
-                                    content: postInfo.content || `# ${postInfo.title}\n\n${postInfo.excerpt}`
+                                    content: content
+                                };
+                            } else {
+                                return {
+                                    ...postInfo,
+                                    content: `# ${postInfo.title}\n\n${postInfo.excerpt}`
                                 };
                             }
-                        })
-                    );
-                    
-                    return posts;
-                }
-
-                const response = await fetch(
-                    `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${POSTS_FOLDER}`
-                );
-
-                if (!response.ok) {
-                    throw new Error(`GitHub API error: ${response.status}`);
-                }
-
-                const files = await response.json();
-                const mdFiles = files.filter(file => file.name.endsWith('.md'));
-
-                if (mdFiles.length === 0) {
-                    return [];
-                }
-
-                const posts = await Promise.all(
-                    mdFiles.map(async (file) => {
-                        try {
-                            const contentResponse = await fetch(file.download_url);
-                            const content = await contentResponse.text();
-                            return parseMarkdownPost(content, file.name);
                         } catch (err) {
-                            console.error(`Error fetching ${file.name}:`, err);
-                            return null;
+                            console.error(`Error fetching ${postInfo.filename}:`, err);
+                            return {
+                                ...postInfo,
+                                content: `# ${postInfo.title}\n\n${postInfo.excerpt}`
+                            };
                         }
                     })
                 );
-
-                return posts.filter(p => p !== null);
-
+                
+                return posts;
             } catch (error) {
                 console.error('Error fetching posts:', error);
                 return [];
-            }
-        }
-
-        // ===== PARSE MARKDOWN POST =====
-        function parseMarkdownPost(content, filename) {
-            // Remove frontmatter (the --- delimited section at the start)
-            let cleanContent = content;
-            let frontmatter = {};
-            let coverImage = null;
-            
-            // Check if content has frontmatter
-            const frontmatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
-            if (frontmatterMatch) {
-                // Parse frontmatter
-                const fmLines = frontmatterMatch[1].split('\n');
-                for (const line of fmLines) {
-                    const [key, ...valueParts] = line.split(':');
-                    if (key && valueParts.length > 0) {
-                        const value = valueParts.join(':').trim();
-                        frontmatter[key.trim()] = value;
-                        // If key is 'cover', store it as the cover image
-                        if (key.trim().toLowerCase() === 'cover') {
-                            coverImage = value;
-                        }
-                    }
-                }
-                // Remove frontmatter from content
-                cleanContent = content.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
-            }
-
-            // Get the title from the first # heading
-            const titleMatch = cleanContent.match(/^#\s+(.+)$/m);
-            const title = titleMatch ? titleMatch[1] : filename.replace('.md', '');
-
-            // Remove the first # heading from the content so it doesn't render twice
-            cleanContent = cleanContent.replace(/^#\s+.+\n/, '');
-
-            let date = new Date().toISOString().split('T')[0];
-            if (frontmatter.date) {
-                date = frontmatter.date;
-            } else {
-                const fileDateMatch = filename.match(/^(\d{4}-\d{2}-\d{2})/);
-                if (fileDateMatch) {
-                    date = fileDateMatch[1];
-                }
-            }
-
-            let tag = 'General';
-            if (frontmatter.tags) {
-                tag = frontmatter.tags;
-            } else if (frontmatter.tag) {
-                tag = frontmatter.tag;
-            }
-
-            // Extract excerpt (first text after title)
-            let excerpt = '';
-            const lines = cleanContent.split('\n');
-            for (const line of lines) {
-                if (line.trim() && !line.startsWith('![') && !line.startsWith('---') && !line.startsWith('[')) {
-                    excerpt = line.trim();
-                    break;
-                }
-            }
-            if (!excerpt) {
-                excerpt = cleanContent.substring(0, 200).replace(/#/g, '').trim() + '...';
-            }
-
-            let icon = '📄';
-            if (frontmatter.icon) {
-                icon = frontmatter.icon;
-            }
-
-            // If no cover image found in frontmatter, try to extract from markdown
-            if (!coverImage) {
-                const imageMatch = cleanContent.match(/!\[.*?\]\((.*?)\)/);
-                if (imageMatch) {
-                    coverImage = imageMatch[1];
-                }
-            }
-
-            const displayDate = formatDate(date);
-
-            return {
-                title,
-                tag,
-                excerpt,
-                content: cleanContent,
-                icon,
-                date: date,
-                displayDate,
-                filename,
-                coverImage
-            };
-        }
-
-        function formatDate(dateStr) {
-            try {
-                const d = new Date(dateStr);
-                return d.toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric'
-                });
-            } catch {
-                return dateStr;
             }
         }
 
@@ -874,7 +745,7 @@
                     <div class="empty-state">
                         <div class="empty-icon">📝</div>
                         <h3>No posts yet</h3>
-                        <p>Add <code>.md</code> files to the <code>${POSTS_FOLDER}/</code> folder.</p>
+                        <p>Add <code>.md</code> files to the <code>${POSTS_FOLDER}/</code> folder and update <code>posts.json</code>.</p>
                     </div>
                 `;
                 return;
@@ -883,13 +754,13 @@
             grid.innerHTML = posts.map(post => `
                 <div class="blog-card" onclick="openPost(${JSON.stringify(post).replace(/"/g, '&quot;')})">
                     <div class="blog-image">
-                        ${post.coverImage ? `<img src="${post.coverImage}" alt="${post.title}" />` : `<span class="placeholder-icon">${post.icon || '📄'}</span>`}
-                        <span class="blog-date-badge">${post.displayDate}</span>
+                        ${post.cover ? `<img src="${post.cover}" alt="${post.title}" />` : `<span class="placeholder-icon">${post.icon || '📄'}</span>`}
+                        <span class="blog-date-badge">${post.displayDate || post.date || ''}</span>
                     </div>
                     <div class="blog-body">
-                        <span class="blog-tag">${post.tag}</span>
+                        <span class="blog-tag">${post.tag || 'General'}</span>
                         <h3>${post.title}</h3>
-                        <div class="excerpt">${post.excerpt}</div>
+                        <div class="excerpt">${post.excerpt || ''}</div>
                         <span class="read-more">Read More →</span>
                     </div>
                 </div>
@@ -915,8 +786,8 @@
             const renderedContent = marked.parse(post.content);
 
             content.innerHTML = `
-                <span class="post-tag">${post.tag}</span>
-                <div class="post-date">${post.displayDate}</div>
+                <span class="post-tag">${post.tag || 'General'}</span>
+                <div class="post-date">${post.displayDate || post.date || ''}</div>
                 <div class="post-title">${post.title}</div>
                 <div class="post-body">${renderedContent}</div>
             `;
@@ -950,6 +821,7 @@
 
         init();
         console.log('📁 WRAITH Blog loaded successfully');
+        console.log('   Posts loaded from: posts.json');
     </script>
 </body>
 </html>
