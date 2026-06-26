@@ -330,12 +330,22 @@
             color: #ffffff;
             margin-bottom: 1.5rem;
             line-height: 1.2;
+            display: none;
         }
 
         .post-modal .modal-content .post-body {
             color: rgba(200, 210, 215, 0.85);
             font-size: 1rem;
             line-height: 1.8;
+        }
+
+        .post-modal .modal-content .post-body h1:first-of-type {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
         }
 
         .post-modal .modal-content .post-body h2 {
@@ -781,7 +791,10 @@
                 cleanContent = content.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '');
             }
 
-            const titleMatch = cleanContent.match(/^#\s+(.+)$/m);
+            // Remove the first # heading from content (we display it separately)
+            cleanContent = cleanContent.replace(/^#\s+.+\n/, '');
+
+            const titleMatch = content.match(/^#\s+(.+)$/m);
             const title = titleMatch ? titleMatch[1] : filename.replace('.md', '');
 
             let date = new Date().toISOString().split('T')[0];
@@ -804,13 +817,9 @@
             // Extract excerpt (first paragraph after title)
             let excerpt = '';
             const lines = cleanContent.split('\n');
-            let foundTitle = false;
+            let foundText = false;
             for (const line of lines) {
-                if (line.startsWith('# ')) {
-                    foundTitle = true;
-                    continue;
-                }
-                if (foundTitle && line.trim() && !line.startsWith('---') && !line.startsWith('[')) {
+                if (line.trim() && !line.startsWith('![') && !line.startsWith('---') && !line.startsWith('[')) {
                     excerpt = line.trim();
                     break;
                 }
