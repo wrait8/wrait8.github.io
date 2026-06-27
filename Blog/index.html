@@ -708,7 +708,19 @@
                             const url = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/main/${POSTS_FOLDER}/${postInfo.filename}`;
                             const contentResponse = await fetch(url);
                             if (contentResponse.ok) {
-                                const content = await contentResponse.text();
+                                let content = await contentResponse.text();
+                                
+                                // Extract images from markdown and convert to HTML
+                                // This ensures images render even if marked fails
+                                const imageRegex = /!\[.*?\]\((.*?)\)/g;
+                                let match;
+                                while ((match = imageRegex.exec(content)) !== null) {
+                                    const fullMatch = match[0];
+                                    const imageUrl = match[1];
+                                    const htmlImage = `<img src="${imageUrl}" alt="blog image" loading="lazy" />`;
+                                    content = content.replace(fullMatch, htmlImage);
+                                }
+                                
                                 return {
                                     ...postInfo,
                                     content: content
@@ -770,32 +782,26 @@
             const modal = document.getElementById('postModal');
             const content = document.getElementById('postContent');
 
-            // Configure marked to render images properly
-            const renderer = new marked.Renderer();
+            // Parse markdown to HTML, but preserve images that were already converted
+            let renderedContent = post.content;
             
-            // Custom image renderer
-            renderer.image = function(href, title, text) {
-                return `<img src="${href}" alt="${text || ''}" title="${title || ''}" loading="lazy" />`;
-            };
+            // If content still has markdown image syntax, try marked
+            if (renderedContent.includes('![')) {
+                // Use marked to render remaining markdown
+                const renderer = new marked.Renderer();
+                renderer.image = function(href, title, text) {
+                    return `<img src="${href}" alt="${text || ''}" title="${title || ''}" loading="lazy" />`;
+                };
+                
+                marked.setOptions({
+                    renderer: renderer,
+                    breaks: true,
+                    gfm: true
+                });
+                
+                renderedContent = marked.parse(renderedContent);
+            }
 
-            // Set marked options
-            marked.setOptions({
-                renderer: renderer,
-                breaks: true,
-                gfm: true,
-                headerIds: false,
-                mangle: false,
-                pedantic: false,
-                sanitize: false,
-                smartLists: true,
-                smartypants: false,
-                xhtml: false
-            });
-
-            // Parse the content
-            let renderedContent = marked.parse(post.content);
-
-            // Ensure images are properly displayed
             content.innerHTML = `
                 <span class="post-tag">${post.tag || 'General'}</span>
                 <div class="post-date">${post.displayDate || post.date || ''}</div>
