@@ -694,7 +694,6 @@
         // ===== FETCH POSTS =====
         async function fetchPosts() {
             try {
-                // Fetch posts.json which contains all post metadata
                 const listResponse = await fetch('posts.json');
                 if (!listResponse.ok) {
                     throw new Error('Failed to fetch posts.json');
@@ -702,7 +701,6 @@
                 
                 const postList = await listResponse.json();
                 
-                // Fetch the full markdown content for each post
                 const posts = await Promise.all(
                     postList.map(async (postInfo) => {
                         try {
@@ -710,21 +708,23 @@
                             const contentResponse = await fetch(url);
                             if (contentResponse.ok) {
                                 const content = await contentResponse.text();
+                                // Remove the first # heading from the content
+                                const contentWithoutTitle = content.replace(/^#\s+.+\n/, '');
                                 return {
                                     ...postInfo,
-                                    content: content
+                                    content: contentWithoutTitle
                                 };
                             } else {
                                 return {
                                     ...postInfo,
-                                    content: `# ${postInfo.title}\n\n${postInfo.excerpt}`
+                                    content: postInfo.excerpt || ''
                                 };
                             }
                         } catch (err) {
                             console.error(`Error fetching ${postInfo.filename}:`, err);
                             return {
                                 ...postInfo,
-                                content: `# ${postInfo.title}\n\n${postInfo.excerpt}`
+                                content: postInfo.excerpt || ''
                             };
                         }
                     })
@@ -783,6 +783,7 @@
                 gfm: true
             });
 
+            // Remove the title from content if it exists (already removed in fetch)
             const renderedContent = marked.parse(post.content);
 
             content.innerHTML = `
