@@ -15,7 +15,7 @@
     "title": "Building a Passive GSM IMSI Catcher with RTL-SDR and gr-gsm",
     "tag": "GSM Hacking, SDR, Hardware",
     "icon": "📡",
-    "cover": "https://www.rtl-sdr.com/wp-content/uploads/2013/05/rtlsdr.jpg",
+    "cover": "https://i.redd.it/7lditiy5ktx91.jpg",
     "date": "2026-06-28",
     "displayDate": "Jun 28, 2026",
     "excerpt": "A passive GSM IMSI catcher built with a cheap RTL-SDR dongle and gr-gsm that captures unique phone identifiers from nearby mobile devices.",
