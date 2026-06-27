@@ -402,6 +402,7 @@
             margin: 1rem 0;
             border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: 4px;
+            display: block;
         }
 
         .post-modal .modal-content .post-body a {
@@ -708,11 +709,9 @@
                             const contentResponse = await fetch(url);
                             if (contentResponse.ok) {
                                 const content = await contentResponse.text();
-                                // Remove the first # heading from the content
-                                const contentWithoutTitle = content.replace(/^#\s+.+\n/, '');
                                 return {
                                     ...postInfo,
-                                    content: contentWithoutTitle
+                                    content: content
                                 };
                             } else {
                                 return {
@@ -771,19 +770,23 @@
             const modal = document.getElementById('postModal');
             const content = document.getElementById('postContent');
 
-            // Configure marked to render images
+            // Configure marked to render images properly
             const renderer = new marked.Renderer();
+            
+            // Custom image renderer
             renderer.image = function(href, title, text) {
-                return `<img src="${href}" alt="${text || ''}" title="${title || ''}" />`;
+                return `<img src="${href}" alt="${text || ''}" title="${title || ''}" loading="lazy" />`;
             };
 
+            // Set marked options
             marked.setOptions({
                 renderer: renderer,
                 breaks: true,
-                gfm: true
+                gfm: true,
+                headerIds: false,
+                mangle: false
             });
 
-            // Remove the title from content if it exists (already removed in fetch)
             const renderedContent = marked.parse(post.content);
 
             content.innerHTML = `
