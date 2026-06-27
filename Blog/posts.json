@@ -20,5 +20,16 @@
     "displayDate": "Jun 28, 2026",
     "excerpt": "A passive GSM IMSI catcher built with a cheap RTL-SDR dongle and gr-gsm that captures unique phone identifiers from nearby mobile devices.",
     "content": ""
+  },
+    "filename": "2026-06-28-adsb-aircraft-radar-rtl-sdr.md",
+    "title": "Building a Real-Time ADS-B Aircraft Radar with RTL-SDR and dump1090",
+    "tag": "ADS-B, SDR, Aviation, Hardware",
+    "icon": "✈️",
+    "cover": "https://www.rtl-sdr.com/wp-content/uploads/2020/02/adsbx_tar1090.png",
+    "date": "2026-06-28",
+    "displayDate": "Jun 28, 2026",
+    "excerpt": "Build your own real-time aircraft radar system using a cheap RTL-SDR dongle and dump1090 to track planes flying overhead.",
+    "content": ""
   }
+
 ]
