@@ -710,16 +710,11 @@
                             if (contentResponse.ok) {
                                 let content = await contentResponse.text();
                                 
-                                // Extract images from markdown and convert to HTML
-                                // This ensures images render even if marked fails
-                                const imageRegex = /!\[.*?\]\((.*?)\)/g;
-                                let match;
-                                while ((match = imageRegex.exec(content)) !== null) {
-                                    const fullMatch = match[0];
-                                    const imageUrl = match[1];
-                                    const htmlImage = `<img src="${imageUrl}" alt="blog image" loading="lazy" />`;
-                                    content = content.replace(fullMatch, htmlImage);
-                                }
+                                // FORCE images to render - replace markdown image syntax with HTML
+                                // This handles ALL image formats
+                                content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+                                    return `<img src="${src}" alt="${alt || ''}" loading="lazy" style="max-width:100%;height:auto;margin:1rem 0;border:1px solid rgba(255,255,255,0.04);border-radius:4px;display:block;" />`;
+                                });
                                 
                                 return {
                                     ...postInfo,
@@ -782,15 +777,15 @@
             const modal = document.getElementById('postModal');
             const content = document.getElementById('postContent');
 
-            // Parse markdown to HTML, but preserve images that were already converted
+            // The content already has HTML images from the fetch function
+            // Just render any remaining markdown
             let renderedContent = post.content;
             
-            // If content still has markdown image syntax, try marked
-            if (renderedContent.includes('![')) {
-                // Use marked to render remaining markdown
+            // If there's still markdown, use marked for the rest
+            if (renderedContent.includes('```') || renderedContent.includes('## ')) {
                 const renderer = new marked.Renderer();
                 renderer.image = function(href, title, text) {
-                    return `<img src="${href}" alt="${text || ''}" title="${title || ''}" loading="lazy" />`;
+                    return `<img src="${href}" alt="${text || ''}" title="${title || ''}" loading="lazy" style="max-width:100%;height:auto;margin:1rem 0;border:1px solid rgba(255,255,255,0.04);border-radius:4px;display:block;" />`;
                 };
                 
                 marked.setOptions({
@@ -799,6 +794,7 @@
                     gfm: true
                 });
                 
+                // Only parse markdown parts that aren't already HTML images
                 renderedContent = marked.parse(renderedContent);
             }
 
