@@ -1,6 +1,7 @@
 # The GSM IMSI Catcher: Your Passive Mobile Phone Tracker with RTL-SDR
 
-![RTL-SDR Dongle](https://www.rtl-sdr.com/wp-content/uploads/2013/05/rtlsdr.jpg)
+![RTL-SDR Dongle](https://i.redd.it/7lditiy5ktx91.jpg)
+
 
 An IMSI Catcher is a device that captures the unique International Mobile Subscriber Identity (IMSI) numbers from mobile phones in your vicinity. Using a cheap RTL-SDR dongle and open-source software like gr-gsm, you can build a *passive* IMSI catcher that simply listens to GSM (2G) network traffic. It's like a digital sniffer for phones - it quietly logs identifiers as nearby devices communicate with cell towers, revealing which phones are in the area without ever transmitting a signal.
 
