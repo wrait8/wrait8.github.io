@@ -9,5 +9,16 @@
     "displayDate": "Jun 28, 2026",
     "excerpt": "A Pwnagotchi is a Raspberry Pi Zero device that uses machine learning to capture Wi-Fi handshakes more efficiently.",
     "content": ""
+  },
+  {
+    "filename": "2026-06-28-gsm-imsi-catcher-rtl-sdr.md",
+    "title": "Building a Passive GSM IMSI Catcher with RTL-SDR and gr-gsm",
+    "tag": "GSM Hacking, SDR, Hardware",
+    "icon": "📡",
+    "cover": "https://www.rtl-sdr.com/wp-content/uploads/2013/05/rtlsdr.jpg",
+    "date": "2026-06-28",
+    "displayDate": "Jun 28, 2026",
+    "excerpt": "A passive GSM IMSI catcher built with a cheap RTL-SDR dongle and gr-gsm that captures unique phone identifiers from nearby mobile devices.",
+    "content": ""
   }
 ]
