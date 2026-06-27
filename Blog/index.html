@@ -542,6 +542,7 @@
             font-size: 0.8rem;
             color: rgba(200, 210, 215, 0.3);
         }
+
         @media (max-width: 700px) {
             .hero {
                 height: 40vh;
@@ -783,11 +784,18 @@
                 breaks: true,
                 gfm: true,
                 headerIds: false,
-                mangle: false
+                mangle: false,
+                pedantic: false,
+                sanitize: false,
+                smartLists: true,
+                smartypants: false,
+                xhtml: false
             });
 
-            const renderedContent = marked.parse(post.content);
+            // Parse the content
+            let renderedContent = marked.parse(post.content);
 
+            // Ensure images are properly displayed
             content.innerHTML = `
                 <span class="post-tag">${post.tag || 'General'}</span>
                 <div class="post-date">${post.displayDate || post.date || ''}</div>
