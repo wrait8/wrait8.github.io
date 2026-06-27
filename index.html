@@ -684,6 +684,7 @@
             padding-bottom: 0;
             transform: translateY(0);
             margin-right: auto;
+            margin-left: -40%;
         }
 
         .blog-preview-posts {
@@ -737,11 +738,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
-
-        .blog-preview-card .preview-image .placeholder-icon {
-            font-size: 3rem;
-            opacity: 0.3;
         }
 
         .blog-preview-card .preview-body {
@@ -996,6 +992,12 @@
         }
 
         /* responsive */
+        @media (max-width: 920px) {
+            .blog-preview-ascii {
+                font-size: 1.0648rem;
+            }
+        }
+
         @media (max-width: 700px) {
             .hero-content {
                 padding: 1.8rem 1.5rem;
@@ -1399,7 +1401,7 @@
             <div class="section-bg"></div>
             <div class="blog-preview-container">
                 <div class="blog-preview-ascii">
- ⠀⠀⠀⠀⠀⠀⠀⠀    ⠀⠀⠀⣀⣤⡾⠿⢿⡀⠀⠀⠀⠀⣠⣶⣿⣷⠀⠀⠀⠀
+ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⡾⠿⢿⡀⠀⠀⠀⠀⣠⣶⣿⣷⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⢀⣴⣦⣴⣿⡋⠀⠀⠈⢳⡄⠀⢠⣾⣿⠁⠈⣿⡆⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⣰⣿⣿⠿⠛⠉⠉⠁⠀⠀⠀⠹⡄⣿⣿⣿⠀⠀⢹⡇⠀⠀⠀
     ⠀⠀⠀⠀⣠⣾⡿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⣰⣏⢻⣿⣿⡆⠀⠸⣿⠀⠀⠀
@@ -1583,7 +1585,6 @@
             `).join('');
         }
 
-        // Call renderBlogPreview when page loads
         document.addEventListener('DOMContentLoaded', function() {
             renderBlogPreview();
         });
