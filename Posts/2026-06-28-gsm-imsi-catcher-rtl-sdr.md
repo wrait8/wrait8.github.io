@@ -133,7 +133,7 @@ kal -s GSM900
 ```
 
 ## Capturing IMSI Numbers
-
+![IMSI-Catcher](https://www.rtl-sdr.com/wp-content/uploads/2017/07/capture_simple_IMSI-catcher.png)
 ### Step 1: Start grgsm_livemon
 
 Open a terminal and start the GSM live monitor on one of the frequencies discovered:
