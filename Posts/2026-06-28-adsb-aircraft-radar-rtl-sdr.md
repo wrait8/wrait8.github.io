@@ -1,4 +1,4 @@
-![dump1090 Screenshot](https://www.rtl-sdr.com/wp-content/uploads/2013/05/rtlsdr.jpg)
+![ADSB-Image](https://www.rtl-sdr.com/wp-content/uploads/2020/02/adsbx_tar1090.png)
 
 dump1090 is a powerful, open-source Mode S decoder specifically designed for RTLSDR devices that allows you to receive and decode ADS-B (Automatic Dependent Surveillance–Broadcast) signals from aircraft. Written by Salvatore Sanfilippo (antirez) and released under the BSD license, this software transforms a cheap $20 RTL-SDR dongle into a professional-grade aircraft tracking system. With dump1090, you can track planes in real-time, view their positions on a map, and even contribute data to global flight tracking networks.
 
