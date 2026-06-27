@@ -1,5 +1,3 @@
-# The GSM IMSI Catcher: Your Passive Mobile Phone Tracker with RTL-SDR
-
 ![RTL-SDR Dongle](https://i.redd.it/7lditiy5ktx91.jpg)
 
 
