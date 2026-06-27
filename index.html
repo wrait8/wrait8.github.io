@@ -1,6 +1,3 @@
-Here's the complete `index.html` for your main page with the blog preview working:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -741,6 +738,11 @@ Here's the complete `index.html` for your main page with the blog preview workin
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .blog-preview-card .preview-image .placeholder-icon {
+            font-size: 3rem;
+            opacity: 0.3;
         }
 
         .blog-preview-card .preview-body {
@@ -1582,11 +1584,13 @@ Here's the complete `index.html` for your main page with the blog preview workin
             `).join('');
         }
 
-        renderBlogPreview();
+        // Call renderBlogPreview when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            renderBlogPreview();
+        });
 
         console.log('📁 WRAITH site loaded successfully');
         console.log('   Features: Timeline, Community, Blog Preview');
     </script>
 </body>
 </html>
-```
