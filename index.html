@@ -57,7 +57,7 @@
             pointer-events: none;
         }
 
-        /* dark overlay */
+        /* dark overlay*/
         .page-wrapper::before {
             content: '';
             position: fixed;
@@ -794,13 +794,6 @@
             border-radius: 0px;
         }
 
-        .project-overlay .overlay-content h1 {
-            font-family: 'Space Mono', monospace;
-            font-size: 2.5rem;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-        }
-
         .project-overlay .overlay-content .overlay-repo {
             color: rgba(200, 210, 215, 0.3);
             font-family: 'Space Mono', monospace;
@@ -828,7 +821,10 @@
 
         .project-overlay .overlay-content .overlay-readme h1,
         .project-overlay .overlay-content .overlay-readme h2,
-        .project-overlay .overlay-content .overlay-readme h3 {
+        .project-overlay .overlay-content .overlay-readme h3,
+        .project-overlay .overlay-content .overlay-readme h4,
+        .project-overlay .overlay-content .overlay-readme h5,
+        .project-overlay .overlay-content .overlay-readme h6 {
             color: #ffffff;
             margin: 1.5rem 0 0.5rem 0;
             font-family: 'Space Mono', monospace;
@@ -890,6 +886,43 @@
         .project-overlay .overlay-content .overlay-readme img {
             max-width: 100%;
             height: auto;
+        }
+
+        .project-overlay .overlay-content .overlay-readme table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .project-overlay .overlay-content .overlay-readme table th,
+        .project-overlay .overlay-content .overlay-readme table td {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 0.8rem;
+            text-align: left;
+        }
+
+        .project-overlay .overlay-content .overlay-readme table th {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .project-overlay .overlay-content .overlay-readme table td {
+            color: rgba(200, 210, 215, 0.7);
+        }
+
+        .project-overlay .overlay-content .overlay-readme hr {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 1.5rem 0;
+        }
+
+        .project-overlay .overlay-content .overlay-readme strong {
+            color: #ffffff;
+        }
+
+        .project-overlay .overlay-content .overlay-readme em {
+            color: rgba(200, 210, 215, 0.7);
         }
 
         .project-overlay .overlay-content .overlay-loading {
@@ -2066,25 +2099,58 @@
             if (!text) return 'No README available.';
             
             let html = text;
+            
+            // Headers
             html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
             html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
             html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
             
+            // Bold/Italic
             html = html.replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>');
             html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
             
+            // Code blocks
             html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
             html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
             
+            // Links
             html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
             
+            // Lists
             html = html.replace(/^[\*\-] (.*$)/gim, '<li>$1</li>');
             html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
             
+            // Blockquotes
             html = html.replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>');
             
-            html = html.replace(/\n/g, '<br />');
+            // Tables
+            html = html.replace(/\|(.+)\|/g, function(match) {
+                const cells = match.split('|').filter(c => c.trim());
+                if (cells.length === 0) return match;
+                const isHeader = match.includes('---');
+                if (isHeader) return '';
+                const cellHtml = cells.map(c => `<td>${c.trim()}</td>`).join('');
+                return `<tr>${cellHtml}</tr>`;
+            });
+            
+            // Wrap table rows
+            html = html.replace(/(<tr>.*<\/tr>)/g, function(match) {
+                return `<table><tbody>${match}</tbody></table>`;
+            });
+            
+            // Remove duplicate table tags
+            html = html.replace(/<table><tbody><table>/g, '<table><tbody>');
+            html = html.replace(/<\/table><\/tbody><\/table>/g, '</tbody></table>');
+            
+            // Horizontal rule
+            html = html.replace(/^---$/gim, '<hr>');
+            
+            // Line breaks
+            html = html.replace(/\n/g, '<br>');
+            
+            // Clean up extra spaces
+            html = html.replace(/\s+/g, ' ').trim();
             
             return html;
         }
@@ -2138,14 +2204,12 @@
                 const readmeHTML = readme ? renderMarkdown(readme) : 'No README available.';
 
                 overlayContent.innerHTML = `
-                    <h1>${repo}</h1>
                     <div class="overlay-repo">${GITHUB_USERNAME}/${repo}</div>
                     <div class="overlay-description">${description}</div>
                     <div class="overlay-readme">${readmeHTML}</div>
                 `;
             } catch (error) {
                 overlayContent.innerHTML = `
-                    <h1>${repo}</h1>
                     <div class="overlay-repo">${GITHUB_USERNAME}/${repo}</div>
                     <div class="overlay-description" style="color:rgba(255,100,100,0.5);">Error loading project details.</div>
                 `;
