@@ -74,7 +74,7 @@
             left: 0;
             right: 0;
             z-index: 100;
-            padding: 1.2rem 3rem;
+            padding: 1rem 3rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -92,22 +92,19 @@
         .navbar .nav-logo {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.6rem;
             text-decoration: none;
         }
 
         .navbar .nav-logo img {
-            height: 32px;
+            height: 26px;
             width: auto;
             filter: brightness(1.1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+            transition: transform 0.3s ease;
         }
 
-        .navbar .nav-logo span {
-            font-family: 'Space Mono', monospace;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 0.06em;
+        .navbar .nav-logo img:hover {
+            transform: scale(1.05);
         }
 
         .navbar .nav-links {
@@ -155,31 +152,6 @@
             width: 100%;
         }
 
-        .navbar .nav-github {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 0.5rem 1.2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .navbar .nav-github:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .navbar .nav-github svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-
         /* Mobile menu toggle */
         .nav-toggle {
             display: none;
@@ -221,9 +193,71 @@
             align-items: center;
             justify-content: center;
             padding-top: 80px;
+            overflow: hidden;
         }
 
+        /* Hero background animations */
+        .hero-bg-anim {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(110, 255, 224, 0.3);
+            border-radius: 50%;
+            animation: float-particle linear infinite;
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Glitch effect overlay */
+        .glitch-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.15;
+            background: 
+                repeating-linear-gradient(0deg, 
+                    transparent 0px, 
+                    transparent 2px, 
+                    rgba(0, 255, 0, 0.02) 2px, 
+                    rgba(0, 255, 0, 0.02) 4px
+                );
+            animation: glitch-scan 4s linear infinite;
+        }
+
+        @keyframes glitch-scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* Hero content */
         .hero-content {
+            position: relative;
+            z-index: 2;
             width: 100%;
             max-width: 1200px;
             padding: 2rem;
@@ -246,6 +280,20 @@
             background: rgba(110, 255, 224, 0.04);
             margin-bottom: 2rem;
             animation: fadeInDown 0.8s ease;
+            position: relative;
+        }
+
+        .hero-badge::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border: 1px solid rgba(110, 255, 224, 0.1);
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
 
         @keyframes fadeInDown {
@@ -259,32 +307,8 @@
             }
         }
 
-        .hero .logo-hero {
-            width: 120px;
-            height: 120px;
-            margin-bottom: 1.5rem;
-            filter: drop-shadow(0 0 60px rgba(255, 255, 255, 0.15));
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero .logo-hero img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero .main-title {
+        /* Glitch text effect for main title */
+        .glitch-text {
             font-family: 'Space Mono', monospace;
             font-weight: 700;
             font-size: clamp(4rem, 10vw, 7rem);
@@ -296,10 +320,62 @@
             line-height: 1.05;
             margin-bottom: 0.8rem;
             animation: fadeInUp 1.2s ease;
+            position: relative;
         }
 
-        .hero .main-title .highlight {
+        .glitch-text::before,
+        .glitch-text::after {
+            content: 'WRAITH';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .glitch-text::before {
+            color: rgba(110, 255, 224, 0.5);
+            z-index: -1;
+            animation: glitch-1 3s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            color: rgba(255, 0, 100, 0.3);
+            z-index: -2;
+            animation: glitch-2 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-1 {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-1px, -1px); }
+            80% { transform: translate(1px, 2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-2 {
+            0% { transform: translate(0); }
+            25% { transform: translate(3px, -1px); }
+            50% { transform: translate(-3px, 1px); }
+            75% { transform: translate(1px, -3px); }
+            100% { transform: translate(0); }
+        }
+
+        .glitch-text .highlight {
             color: rgba(200, 210, 215, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero .sub-title {
@@ -334,6 +410,7 @@
 
         .hero .hero-stats .stat {
             text-align: center;
+            position: relative;
         }
 
         .hero .hero-stats .stat .number {
@@ -341,6 +418,19 @@
             font-size: 1.8rem;
             font-weight: 700;
             color: #ffffff;
+            display: block;
+            animation: count-up 2s ease-out;
+        }
+
+        @keyframes count-up {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .hero .hero-stats .stat .label {
@@ -351,38 +441,21 @@
             margin-top: 0.2rem;
         }
 
-        .hero .scroll-indicator {
+        .hero .hero-stats .stat::after {
+            content: '';
             position: absolute;
-            bottom: 2.5rem;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            color: rgba(200, 210, 215, 0.2);
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            animation: bounce 2s infinite;
+            width: 20px;
+            height: 1px;
+            background: rgba(110, 255, 224, 0.2);
+            animation: expand-line 2s ease-out;
         }
 
-        .hero .scroll-indicator .line {
-            width: 1px;
-            height: 30px;
-            background: linear-gradient(to bottom, rgba(200, 210, 215, 0.2), transparent);
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
+        @keyframes expand-line {
+            from { width: 0; opacity: 0; }
+            to { width: 20px; opacity: 1; }
         }
 
         /* ===== PROJECTS SECTION ===== */
@@ -501,39 +574,6 @@
             padding: 1.8rem 2rem 2rem;
             position: relative;
             margin-top: -2px;
-        }
-
-        .project-body .version-badge {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            padding: 0.2rem 0.8rem;
-            background: rgba(110, 255, 224, 0.08);
-            border: 1px solid rgba(110, 255, 224, 0.15);
-            color: #6effe0;
-            display: inline-block;
-            margin-bottom: 0.6rem;
-        }
-
-        .project-body .status-badge {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            padding: 0.2rem 0.8rem;
-            background: rgba(255, 215, 0, 0.08);
-            border: 1px solid rgba(255, 215, 0, 0.15);
-            color: #ffd700;
-            display: inline-block;
-            margin-bottom: 0.6rem;
-            margin-left: 0.4rem;
-        }
-
-        .project-body .status-badge.completed {
-            background: rgba(110, 255, 224, 0.08);
-            border-color: rgba(110, 255, 224, 0.15);
-            color: #6effe0;
         }
 
         .project-body h3 {
@@ -1357,10 +1397,6 @@
                 display: flex;
             }
 
-            .navbar .nav-github {
-                display: none;
-            }
-
             .navbar .nav-links .nav-github-mobile {
                 display: flex;
                 align-items: center;
@@ -1371,6 +1407,12 @@
                 border: 1px solid rgba(255, 255, 255, 0.1);
                 margin-top: 0.5rem;
             }
+
+            .navbar .nav-links .nav-github-mobile svg {
+                width: 18px;
+                height: 18px;
+                fill: currentColor;
+            }
         }
         
         @media (max-width: 700px) {
@@ -1378,14 +1420,13 @@
                 padding: 0.8rem 1.2rem;
             }
 
+            .navbar .nav-logo img {
+                height: 22px;
+            }
+
             .hero {
                 padding-top: 70px;
                 min-height: 90vh;
-            }
-
-            .hero .logo-hero {
-                width: 80px;
-                height: 80px;
             }
 
             .hero .main-title {
@@ -1497,17 +1538,14 @@
                 right: 1.5rem;
                 font-size: 1.5rem;
             }
-            .hero .scroll-indicator {
+            .glitch-text::before,
+            .glitch-text::after {
                 display: none;
             }
         }
         @media (max-width: 480px) {
             .hero .main-title {
                 font-size: 2.8rem;
-            }
-            .hero .logo-hero {
-                width: 60px;
-                height: 60px;
             }
             .logo-wrapper {
                 width: 100px;
@@ -1565,6 +1603,10 @@
             .hero .hero-stats .stat .number {
                 font-size: 1.2rem;
             }
+            .glitch-text::before,
+            .glitch-text::after {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -1577,7 +1619,6 @@
         <nav class="navbar" id="navbar">
             <a href="#" class="nav-logo">
                 <img src="Images/wraith.png" alt="WRAITH" />
-                <span>WRAITH</span>
             </a>
             
             <ul class="nav-links" id="navLinks">
@@ -1593,13 +1634,6 @@
                 </a></li>
             </ul>
 
-            <a href="https://github.com/wrait8" class="nav-github" target="_blank">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.468-2.38 1.235-3.22-.123-.3-.535-1.52.117-3.16 0 0 1.008-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.29-1.552 3.297-1.23 3.297-1.23.653 1.64.24 2.86.118 3.16.768.84 1.233 1.91 1.233 3.22 0 4.61-2.804 5.62-5.476 5.92.43.37.824 1.102.824 2.22 0 1.602-.015 2.894-.015 3.287 0 .322.216.694.825.577C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                </svg>
-                GitHub
-            </a>
-
             <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
                 <span></span>
                 <span></span>
@@ -1609,16 +1643,33 @@
 
         <!-- ===== HERO SECTION ===== -->
         <section class="hero">
+            <!-- Background animations -->
+            <div class="hero-bg-anim">
+                <!-- Floating particles -->
+                <div class="particle" style="left:10%; animation-duration:18s; animation-delay:0s; width:3px; height:3px;"></div>
+                <div class="particle" style="left:20%; animation-duration:22s; animation-delay:2s; width:5px; height:5px;"></div>
+                <div class="particle" style="left:35%; animation-duration:15s; animation-delay:4s; width:2px; height:2px;"></div>
+                <div class="particle" style="left:50%; animation-duration:20s; animation-delay:1s; width:4px; height:4px;"></div>
+                <div class="particle" style="left:65%; animation-duration:25s; animation-delay:3s; width:3px; height:3px;"></div>
+                <div class="particle" style="left:75%; animation-duration:17s; animation-delay:5s; width:6px; height:6px;"></div>
+                <div class="particle" style="left:85%; animation-duration:23s; animation-delay:2s; width:3px; height:3px;"></div>
+                <div class="particle" style="left:95%; animation-duration:19s; animation-delay:4s; width:4px; height:4px;"></div>
+                <div class="particle" style="left:15%; animation-duration:21s; animation-delay:6s; width:2px; height:2px;"></div>
+                <div class="particle" style="left:45%; animation-duration:16s; animation-delay:3s; width:5px; height:5px;"></div>
+                <div class="particle" style="left:55%; animation-duration:24s; animation-delay:1s; width:3px; height:3px;"></div>
+                <div class="particle" style="left:70%; animation-duration:18s; animation-delay:7s; width:4px; height:4px;"></div>
+                <div class="particle" style="left:30%; animation-duration:20s; animation-delay:5s; width:3px; height:3px;"></div>
+                <div class="particle" style="left:80%; animation-duration:22s; animation-delay:8s; width:2px; height:2px;"></div>
+                <div class="particle" style="left:40%; animation-duration:19s; animation-delay:2s; width:5px; height:5px;"></div>
+
+                <!-- Glitch overlay -->
+                <div class="glitch-overlay"></div>
+            </div>
+
             <div class="hero-content">
                 <span class="hero-badge">◈ open source collective</span>
                 
-                <div class="logo-hero">
-                    <img src="Images/wraith.png" alt="WRAITH" />
-                </div>
-                
-                <h1 class="main-title">
-                    WRAITH
-                </h1>
+                <h1 class="glitch-text">WRAITH</h1>
                 
                 <div class="sub-title">open‑source hacking tools & gadgets</div>
                 
@@ -1629,22 +1680,13 @@
 
                 <div class="hero-stats">
                     <div class="stat">
-                        <div class="number" id="repoCount">5</div>
-                        <div class="label">Projects</div>
+                        <span class="number" id="repoCount">5</span>
+                        <span class="label">Projects</span>
                     </div>
                     <div class="stat">
-                        <div class="number" id="releaseCount">0</div>
-                        <div class="label">Releases</div>
+                        <span class="number" id="releaseCount">0</span>
+                        <span class="label">Releases</span>
                     </div>
-                    <div class="stat">
-                        <div class="number">∞</div>
-                        <div class="label">Possibilities</div>
-                    </div>
-                </div>
-
-                <div class="scroll-indicator">
-                    scroll
-                    <div class="line"></div>
                 </div>
             </div>
         </section>
@@ -1665,10 +1707,6 @@
                             <span class="fallback-icon">VR</span>
                         </div>
                         <div class="project-body">
-                            <div>
-                                <span class="version-badge">v0.1.0-beta.2</span>
-                                <span class="status-badge">● in progress</span>
-                            </div>
                             <h3>VoidRecon</h3>
                             <p>A suite of RF offensive and defensive tools for the ESP32 (Atmega32u4 in future). CC1101 based RF-tool for analyzing, recording, replaying, sniffing, jamming and more...</p>
                             <div class="tags">
@@ -2309,7 +2347,7 @@
         });
 
         console.log('📁 WRAITH site loaded successfully');
-        console.log('   Features: Navigation, Releases timeline, Project overlays, Blog Preview');
+        console.log('   Features: Navigation, Hero animations, Releases timeline, Project overlays, Blog Preview');
         console.log(`   Fetching releases from: ${REPOS.join(', ')}`);
     </script>
 </body>
