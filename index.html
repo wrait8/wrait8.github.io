@@ -23,7 +23,6 @@
             overflow-x: hidden;
         }
 
-        /* ===== FULL PAGE BACKGROUND WRAPPER ===== */
         .page-wrapper {
             position: relative;
             min-height: 100vh;
@@ -31,7 +30,6 @@
             overflow: hidden;
         }
 
-        /* ----- BACKGROUND IMAGE: FULL PAGE ----- */
         .page-bg {
             position: fixed;
             top: 0;
@@ -45,7 +43,6 @@
             z-index: 0;
         }
 
-        /* fallback gradient */
         .page-bg::after {
             content: '';
             position: absolute;
@@ -57,7 +54,6 @@
             pointer-events: none;
         }
 
-        /* dark overlay - 5% darker (0.55 → 0.60) */
         .page-wrapper::before {
             content: '';
             position: fixed;
@@ -67,7 +63,6 @@
             backdrop-filter: blur(1px);
         }
 
-        /* ===== NAVIGATION ===== */
         .navbar {
             position: fixed;
             top: 0;
@@ -87,13 +82,6 @@
         .navbar-scrolled {
             background: rgba(11, 12, 14, 0.95);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .navbar .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            text-decoration: none;
         }
 
         .navbar .nav-logo img {
@@ -192,7 +180,6 @@
             fill: currentColor;
         }
 
-        /* Mobile menu toggle */
         .nav-toggle {
             display: none;
             flex-direction: column;
@@ -223,7 +210,6 @@
             transform: rotate(-45deg) translate(5px, -5px);
         }
 
-        /* ===== HERO SECTION ===== */
         .hero {
             position: relative;
             z-index: 10;
@@ -264,14 +250,8 @@
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .glitch-text {
@@ -280,23 +260,15 @@
             font-size: clamp(4rem, 10vw, 7rem);
             letter-spacing: 0.06em;
             color: #ffffff;
-            text-shadow:
-                0 0 40px rgba(255, 255, 255, 0.05),
-                0 4px 30px rgba(0, 0, 0, 0.9);
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.05), 0 4px 30px rgba(0, 0, 0, 0.9);
             line-height: 1.05;
             margin-bottom: 0.8rem;
             animation: fadeInUp 1.2s ease;
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero .sub-title {
@@ -349,7 +321,6 @@
             margin-top: 0.2rem;
         }
 
-        /* ===== PROJECTS SECTION ===== */
         .projects-section {
             position: relative;
             z-index: 10;
@@ -533,7 +504,6 @@
             opacity: 1;
         }
 
-        /* ===== RELEASES TIMELINE ===== */
         .releases-section {
             position: relative;
             z-index: 10;
@@ -714,7 +684,6 @@
             color: rgba(200, 210, 215, 0.5);
         }
 
-        /* Loading states */
         .releases-loading {
             text-align: center;
             padding: 3rem 1rem;
@@ -748,7 +717,6 @@
             min-width: 300px;
         }
 
-        /* ===== PROJECT DETAIL OVERLAY ===== */
         .project-overlay {
             display: none;
             position: fixed;
@@ -798,20 +766,20 @@
             color: rgba(200, 210, 215, 0.3);
             font-family: 'Space Mono', monospace;
             font-size: 0.8rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
         }
 
         .project-overlay .overlay-content .overlay-description {
             color: rgba(200, 210, 215, 0.7);
             font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
         }
 
         .project-overlay .overlay-content .overlay-readme {
             color: rgba(200, 210, 215, 0.8);
             font-size: 0.95rem;
-            line-height: 1.8;
+            line-height: 1.5;
             white-space: pre-wrap;
             word-wrap: break-word;
             font-family: 'Space Grotesk', sans-serif;
@@ -822,11 +790,9 @@
         .project-overlay .overlay-content .overlay-readme h1,
         .project-overlay .overlay-content .overlay-readme h2,
         .project-overlay .overlay-content .overlay-readme h3,
-        .project-overlay .overlay-content .overlay-readme h4,
-        .project-overlay .overlay-content .overlay-readme h5,
-        .project-overlay .overlay-content .overlay-readme h6 {
+        .project-overlay .overlay-content .overlay-readme h4 {
             color: #ffffff;
-            margin: 1.5rem 0 0.5rem 0;
+            margin: 1rem 0 0.3rem 0;
             font-family: 'Space Mono', monospace;
         }
 
@@ -836,7 +802,7 @@
 
         .project-overlay .overlay-content .overlay-readme code {
             background: rgba(255, 255, 255, 0.05);
-            padding: 0.2rem 0.4rem;
+            padding: 0.1rem 0.3rem;
             border-radius: 2px;
             font-family: 'Space Mono', monospace;
             font-size: 0.85rem;
@@ -845,9 +811,9 @@
 
         .project-overlay .overlay-content .overlay-readme pre {
             background: rgba(0, 0, 0, 0.4);
-            padding: 1rem;
+            padding: 0.8rem;
             overflow-x: auto;
-            margin: 0.5rem 0 1rem 0;
+            margin: 0.3rem 0 0.8rem 0;
             border: 1px solid rgba(255, 255, 255, 0.04);
         }
 
@@ -860,11 +826,12 @@
         .project-overlay .overlay-content .overlay-readme ul,
         .project-overlay .overlay-content .overlay-readme ol {
             padding-left: 1.5rem;
-            margin: 0.5rem 0 1rem 0;
+            margin: 0.3rem 0 0.8rem 0;
         }
 
         .project-overlay .overlay-content .overlay-readme li {
-            margin: 0.3rem 0;
+            margin: 0.2rem 0;
+            line-height: 1.5;
         }
 
         .project-overlay .overlay-content .overlay-readme a {
@@ -879,7 +846,7 @@
         .project-overlay .overlay-content .overlay-readme blockquote {
             border-left: 3px solid rgba(110, 255, 224, 0.3);
             padding-left: 1rem;
-            margin: 1rem 0;
+            margin: 0.5rem 0;
             color: rgba(200, 210, 215, 0.5);
         }
 
@@ -891,13 +858,13 @@
         .project-overlay .overlay-content .overlay-readme table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1rem 0;
+            margin: 0.5rem 0;
         }
 
         .project-overlay .overlay-content .overlay-readme table th,
         .project-overlay .overlay-content .overlay-readme table td {
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 0.5rem 0.8rem;
+            padding: 0.4rem 0.6rem;
             text-align: left;
         }
 
@@ -914,15 +881,16 @@
         .project-overlay .overlay-content .overlay-readme hr {
             border: none;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
-            margin: 1.5rem 0;
+            margin: 1rem 0;
         }
 
         .project-overlay .overlay-content .overlay-readme strong {
             color: #ffffff;
         }
 
-        .project-overlay .overlay-content .overlay-readme em {
-            color: rgba(200, 210, 215, 0.7);
+        .project-overlay .overlay-content .overlay-readme p {
+            margin: 0.3rem 0;
+            line-height: 1.5;
         }
 
         .project-overlay .overlay-content .overlay-loading {
@@ -942,7 +910,6 @@
             margin-bottom: 1rem;
         }
 
-        /* ===== BLOG PREVIEW SECTION ===== */
         .blog-preview-section {
             position: relative;
             z-index: 10;
@@ -1101,7 +1068,6 @@
             border-bottom-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* ===== COMMUNITY SECTION ===== */
         .community-section {
             position: relative;
             z-index: 10;
@@ -1196,7 +1162,6 @@
             border-color: rgba(255, 255, 255, 0.15);
         }
 
-        /* ===== FOOTER ===== */
         .footer-section {
             position: relative;
             z-index: 10;
@@ -1280,7 +1245,6 @@
             color: #ffffff;
         }
 
-        /* responsive */
         @media (max-width: 1024px) {
             .blog-preview-ascii {
                 display: none;
@@ -1389,22 +1353,6 @@
                 font-size: 1.4rem;
             }
 
-            .btn {
-                font-size: 1rem;
-                padding: 0.9rem 3.4rem;
-                min-width: 200px;
-            }
-            .button-group {
-                gap: 0.8rem;
-                flex-direction: column;
-                width: 100%;
-                max-width: 320px;
-                margin: 0 auto;
-            }
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
             .projects-grid {
                 grid-template-columns: 1fr;
             }
@@ -1491,22 +1439,9 @@
             .hero .main-title {
                 font-size: 2.8rem;
             }
-            .logo-wrapper {
-                width: 100px;
-                height: 100px;
-            }
             .sub-title {
                 font-size: 0.9rem;
                 letter-spacing: 0.12em;
-            }
-            .btn {
-                font-size: 0.85rem;
-                padding: 1rem 2.6rem;
-                min-width: 170px;
-            }
-            .btn svg {
-                width: 18px;
-                height: 18px;
             }
             .project-body {
                 padding: 1.5rem;
@@ -1552,10 +1487,8 @@
 </head>
 <body>
     <div class="page-wrapper">
-        <!-- ===== BACKGROUND IMAGE: FULL PAGE ===== -->
         <div class="page-bg"></div>
 
-        <!-- ===== NAVIGATION ===== -->
         <nav class="navbar" id="navbar">
             <a href="#" class="nav-logo">
                 <img src="Images/wraith.png" alt="WRAITH" />
@@ -1588,20 +1521,12 @@
             </button>
         </nav>
 
-        <!-- ===== HERO SECTION ===== -->
         <section class="hero">
             <div class="hero-content">
                 <span class="hero-badge">◈ open source collective</span>
-                
                 <h1 class="glitch-text">WRAITH</h1>
-                
                 <div class="sub-title">open‑source hacking tools & gadgets</div>
-                
-                <p class="hero-description">
-                    A curated collection of offensive and defensive security tools, 
-                    built with precision for the modern hacker.
-                </p>
-
+                <p class="hero-description">A curated collection of offensive and defensive security tools, built with precision for the modern hacker.</p>
                 <div class="hero-stats">
                     <div class="stat">
                         <span class="number" id="repoCount">5</span>
@@ -1619,19 +1544,16 @@
             </div>
         </section>
 
-        <!-- ===== PROJECTS SECTION ===== -->
         <section class="projects-section" id="projects">
             <div class="projects-container">
                 <div class="projects-header">
                     <h2>// projects</h2>
                     <p>open‑source tools from our arsenal</p>
                 </div>
-
                 <div class="projects-grid">
-                    <!-- Project 1: VoidRecon -->
                     <div class="project-card" data-repo="VoidRecon">
                         <div class="project-image">
-                            <img src="Images/voidrecon.png" alt="VoidRecon screenshot" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
+                            <img src="Images/voidrecon.png" alt="VoidRecon" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
                             <span class="fallback-icon">VR</span>
                         </div>
                         <div class="project-body">
@@ -1652,10 +1574,9 @@
                         </div>
                     </div>
 
-                    <!-- Project 2: SkyEye -->
                     <div class="project-card" data-repo="SkyEye">
                         <div class="project-image">
-                            <img src="Images/skyeye.png" alt="SkyEye screenshot" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
+                            <img src="Images/skyeye.png" alt="SkyEye" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
                             <span class="fallback-icon">SE</span>
                         </div>
                         <div class="project-body">
@@ -1675,10 +1596,9 @@
                         </div>
                     </div>
 
-                    <!-- Project 3: WCli -->
                     <div class="project-card" data-repo="WCli">
                         <div class="project-image">
-                            <img src="Images/wcli.png" alt="WCli screenshot" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
+                            <img src="Images/wcli.png" alt="WCli" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
                             <span class="fallback-icon">WC</span>
                         </div>
                         <div class="project-body">
@@ -1698,10 +1618,9 @@
                         </div>
                     </div>
 
-                    <!-- Project 4: WFlasher -->
                     <div class="project-card" data-repo="WFlasher">
                         <div class="project-image">
-                            <img src="Images/wflasher.png" alt="WFlasher screenshot" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
+                            <img src="Images/wflasher.png" alt="WFlasher" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
                             <span class="fallback-icon">WF</span>
                         </div>
                         <div class="project-body">
@@ -1721,10 +1640,9 @@
                         </div>
                     </div>
 
-                    <!-- Project 5: WSerial -->
                     <div class="project-card" data-repo="WSerial">
                         <div class="project-image">
-                            <img src="Images/wserial.png" alt="WSerial screenshot" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
+                            <img src="Images/wserial.png" alt="WSerial" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
                             <span class="fallback-icon">WS</span>
                         </div>
                         <div class="project-body">
@@ -1747,14 +1665,12 @@
             </div>
         </section>
 
-        <!-- ===== RELEASES TIMELINE ===== -->
         <section class="releases-section" id="releases">
             <div class="releases-container">
                 <div class="releases-header">
                     <h2>// releases</h2>
                     <p>drag to scroll through versions</p>
                 </div>
-
                 <div class="releases-scroll-wrapper" id="releasesScroll">
                     <div class="releases-track" id="releasesTrack">
                         <div class="releases-loading" id="releasesLoading">
@@ -1766,7 +1682,6 @@
             </div>
         </section>
 
-        <!-- ===== BLOG PREVIEW SECTION ===== -->
         <section class="blog-preview-section" id="blog">
             <div class="section-bg"></div>
             <div class="blog-preview-container">
@@ -1784,7 +1699,6 @@
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣶⣤⣉⣛⠻⠇⢠⣿⣾⣿⡄⢻⡇
   ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣦⣤⣾⣿⣿⣿⣿⣆⠁
                 </div>
-
                 <div class="blog-preview-posts">
                     <div class="blog-preview-grid" id="blogPreviewGrid">
                         <div style="grid-column:1/-1; text-align:center; padding:2rem; color:rgba(200,210,215,0.3); font-family:'Space Mono',monospace;">⏳ loading posts...</div>
@@ -1794,14 +1708,12 @@
             </div>
         </section>
 
-        <!-- ===== COMMUNITY SECTION ===== -->
         <section class="community-section" id="community">
             <div class="community-container">
                 <div class="community-header">
                     <h2>// community</h2>
                     <p>join the wraith collective</p>
                 </div>
-
                 <div class="community-grid">
                     <div class="community-card">
                         <span class="icon">💬</span>
@@ -1809,7 +1721,6 @@
                         <p>Join our Discord server for real-time discussion, support, and collaboration with other developers.</p>
                         <a href="#" class="community-link">Join Discord →</a>
                     </div>
-
                     <div class="community-card">
                         <span class="icon">📝</span>
                         <h3>Contributor Guidelines</h3>
@@ -1820,7 +1731,6 @@
             </div>
         </section>
 
-        <!-- ===== FOOTER ===== -->
         <footer class="footer-section">
             <div class="footer-container">
                 <div class="ascii-art-wrapper">
@@ -1833,7 +1743,6 @@
 `----------`-'----------`
                     </div>
                 </div>
-
                 <div class="footer-info">
                     <div class="info-item">
                         <span class="label">version</span>
@@ -1859,7 +1768,6 @@
             </div>
         </footer>
 
-        <!-- ===== PROJECT OVERLAY ===== -->
         <div class="project-overlay" id="projectOverlay">
             <button class="close-btn" id="closeOverlay">✕</button>
             <div class="overlay-content" id="overlayContent">
@@ -1872,12 +1780,11 @@
     </div>
 
     <script>
-        // ===== NAVIGATION =====
+        // Navigation
         const navbar = document.getElementById('navbar');
         const navToggle = document.getElementById('navToggle');
         const navLinks = document.getElementById('navLinks');
 
-        // Scroll effect
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
                 navbar.classList.add('navbar-scrolled');
@@ -1886,13 +1793,11 @@
             }
         });
 
-        // Mobile menu toggle
         navToggle.addEventListener('click', () => {
             navToggle.classList.toggle('active');
             navLinks.classList.toggle('open');
         });
 
-        // Close menu on link click
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navToggle.classList.remove('active');
@@ -1900,7 +1805,7 @@
             });
         });
 
-        // ===== RELEASES DRAG TO SCROLL =====
+        // Releases drag to scroll
         const releasesScroll = document.getElementById('releasesScroll');
         let isDown = false;
         let startX;
@@ -1931,7 +1836,6 @@
             releasesScroll.scrollLeft = scrollLeft - walk;
         });
 
-        // Touch support for mobile
         let touchStartX = 0;
         let touchScrollLeft = 0;
 
@@ -1946,7 +1850,7 @@
             releasesScroll.scrollLeft = touchScrollLeft - walk;
         });
 
-        // ===== FETCH REAL GITHUB DATA =====
+        // GitHub API
         const GITHUB_USERNAME = 'wrait8';
         const REPOS = ['VoidRecon', 'SkyEye', 'WCli', 'WFlasher', 'WSerial'];
         
@@ -1954,7 +1858,7 @@
             try {
                 const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${repo}/releases`);
                 if (!response.ok) {
-                    throw new Error(`Failed to fetch releases for ${repo}`);
+                    return [];
                 }
                 const releases = await response.json();
                 return releases.map(release => ({
@@ -1997,7 +1901,7 @@
             try {
                 const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
                 if (!response.ok) {
-                    throw new Error('Failed to fetch user data');
+                    return 0;
                 }
                 const data = await response.json();
                 return data.followers || 0;
@@ -2090,7 +1994,7 @@
             document.getElementById('followerCount').textContent = followers;
         }
 
-        // ===== PROJECT DETAIL OVERLAY =====
+        // Project Overlay
         const overlay = document.getElementById('projectOverlay');
         const overlayContent = document.getElementById('overlayContent');
         const closeOverlay = document.getElementById('closeOverlay');
@@ -2119,7 +2023,6 @@
             
             // Lists
             html = html.replace(/^[\*\-] (.*$)/gim, '<li>$1</li>');
-            html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
             
             // Blockquotes
             html = html.replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>');
@@ -2134,23 +2037,23 @@
                 return `<tr>${cellHtml}</tr>`;
             });
             
-            // Wrap table rows
             html = html.replace(/(<tr>.*<\/tr>)/g, function(match) {
                 return `<table><tbody>${match}</tbody></table>`;
             });
             
-            // Remove duplicate table tags
             html = html.replace(/<table><tbody><table>/g, '<table><tbody>');
             html = html.replace(/<\/table><\/tbody><\/table>/g, '</tbody></table>');
             
-            // Horizontal rule
             html = html.replace(/^---$/gim, '<hr>');
             
-            // Line breaks
+            // Paragraphs - replace double newlines with paragraph tags, but preserve single newlines as <br>
+            html = html.replace(/\n\n/g, '</p><p>');
             html = html.replace(/\n/g, '<br>');
             
-            // Clean up extra spaces
-            html = html.replace(/\s+/g, ' ').trim();
+            // Wrap in paragraph if not already
+            if (!html.startsWith('<')) {
+                html = '<p>' + html + '</p>';
+            }
             
             return html;
         }
@@ -2159,7 +2062,7 @@
             try {
                 const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${repo}/readme`);
                 if (!response.ok) {
-                    throw new Error('README not found');
+                    return null;
                 }
                 const data = await response.json();
                 const content = atob(data.content);
@@ -2174,7 +2077,7 @@
             try {
                 const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${repo}`);
                 if (!response.ok) {
-                    throw new Error('Failed to fetch repo info');
+                    return 'No description available.';
                 }
                 const data = await response.json();
                 return data.description || 'No description available.';
@@ -2216,7 +2119,6 @@
             }
         }
 
-        // Project card click handler
         document.querySelectorAll('.project-card').forEach(card => {
             card.addEventListener('click', function(e) {
                 const repo = this.dataset.repo;
@@ -2226,7 +2128,6 @@
             });
         });
 
-        // Close overlay
         closeOverlay.addEventListener('click', () => {
             overlay.classList.remove('active');
             document.body.style.overflow = '';
@@ -2246,12 +2147,12 @@
             }
         });
 
-        // ===== BLOG PREVIEW =====
+        // Blog Preview
         async function fetchBlogPosts() {
             try {
                 const response = await fetch('Blog/posts.json');
                 if (!response.ok) {
-                    throw new Error('Failed to fetch posts.json');
+                    return [];
                 }
                 const posts = await response.json();
                 return posts;
@@ -2263,7 +2164,6 @@
 
         async function renderBlogPreview() {
             const grid = document.getElementById('blogPreviewGrid');
-            
             const posts = await fetchBlogPosts();
 
             if (posts.length === 0) {
@@ -2293,7 +2193,7 @@
             `).join('');
         }
 
-        // ===== SMOOTH SCROLL FOR NAV LINKS =====
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const target = document.querySelector(this.getAttribute('href'));
@@ -2308,7 +2208,7 @@
             });
         });
 
-        // ===== INITIALIZE =====
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             renderReleases();
             renderBlogPreview();
@@ -2316,7 +2216,6 @@
         });
 
         console.log('📁 WRAITH site loaded successfully');
-        console.log(`   Fetching releases from: ${REPOS.join(', ')}`);
     </script>
 </body>
 </html>
