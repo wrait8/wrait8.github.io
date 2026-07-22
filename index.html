@@ -23,6 +23,7 @@
             overflow-x: hidden;
         }
 
+        /* ===== FULL PAGE BACKGROUND WRAPPER ===== */
         .page-wrapper {
             position: relative;
             min-height: 100vh;
@@ -30,6 +31,7 @@
             overflow: hidden;
         }
 
+        /* ----- BACKGROUND IMAGE: FULL PAGE ----- */
         .page-bg {
             position: fixed;
             top: 0;
@@ -43,6 +45,7 @@
             z-index: 0;
         }
 
+        /* fallback gradient */
         .page-bg::after {
             content: '';
             position: absolute;
@@ -54,6 +57,7 @@
             pointer-events: none;
         }
 
+        /* dark overlay */
         .page-wrapper::before {
             content: '';
             position: fixed;
@@ -63,6 +67,7 @@
             backdrop-filter: blur(1px);
         }
 
+        /* ===== NAVIGATION ===== */
         .navbar {
             position: fixed;
             top: 0;
@@ -84,8 +89,15 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
+        .navbar .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+        }
+
         .navbar .nav-logo img {
-            height: 37px;
+            height: 32px;
             width: auto;
             filter: brightness(1.1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
             transition: transform 0.3s ease;
@@ -210,6 +222,7 @@
             transform: rotate(-45deg) translate(5px, -5px);
         }
 
+        /* ===== HERO SECTION ===== */
         .hero {
             position: relative;
             z-index: 10;
@@ -321,6 +334,7 @@
             margin-top: 0.2rem;
         }
 
+        /* ===== PROJECTS SECTION ===== */
         .projects-section {
             position: relative;
             z-index: 10;
@@ -504,6 +518,7 @@
             opacity: 1;
         }
 
+        /* ===== RELEASES TIMELINE ===== */
         .releases-section {
             position: relative;
             z-index: 10;
@@ -717,7 +732,7 @@
             min-width: 300px;
         }
 
-        /* ===== PROJECT OVERLAY - FULL SCREEN ===== */
+        /* ===== PROJECT OVERLAY ===== */
         .project-overlay {
             display: none;
             position: fixed;
@@ -725,10 +740,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.92);
             z-index: 1000;
             overflow-y: auto;
-            padding: 0;
+            padding: 2rem;
             backdrop-filter: blur(10px);
         }
 
@@ -755,23 +770,37 @@
         }
 
         .project-overlay .overlay-content {
-            max-width: 100%;
-            width: 100%;
-            min-height: 100vh;
-            margin: 0;
+            max-width: 900px;
+            margin: 3rem auto;
             background: rgba(18, 18, 18, 0.95);
-            border: none;
-            padding: 4rem 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 3rem;
             border-radius: 0px;
+        }
+
+        .project-overlay .overlay-content .overlay-repo {
+            color: rgba(200, 210, 215, 0.3);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-overlay .overlay-content .overlay-description {
+            color: rgba(200, 210, 215, 0.7);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
         }
 
         .project-overlay .overlay-content .overlay-readme {
             color: rgba(200, 210, 215, 0.8);
             font-size: 0.95rem;
-            line-height: 1.6;
+            line-height: 1.5;
             white-space: pre-wrap;
             word-wrap: break-word;
             font-family: 'Space Grotesk', sans-serif;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .project-overlay .overlay-content .overlay-readme h1,
@@ -779,13 +808,13 @@
         .project-overlay .overlay-content .overlay-readme h3,
         .project-overlay .overlay-content .overlay-readme h4 {
             color: #ffffff;
-            margin: 1.5rem 0 0.5rem 0;
+            margin: 1rem 0 0.3rem 0;
             font-family: 'Space Mono', monospace;
         }
 
-        .project-overlay .overlay-content .overlay-readme h1 { font-size: 2rem; }
-        .project-overlay .overlay-content .overlay-readme h2 { font-size: 1.6rem; }
-        .project-overlay .overlay-content .overlay-readme h3 { font-size: 1.3rem; }
+        .project-overlay .overlay-content .overlay-readme h1 { font-size: 1.8rem; }
+        .project-overlay .overlay-content .overlay-readme h2 { font-size: 1.4rem; }
+        .project-overlay .overlay-content .overlay-readme h3 { font-size: 1.1rem; }
 
         .project-overlay .overlay-content .overlay-readme code {
             background: rgba(255, 255, 255, 0.05);
@@ -798,9 +827,9 @@
 
         .project-overlay .overlay-content .overlay-readme pre {
             background: rgba(0, 0, 0, 0.4);
-            padding: 1rem;
+            padding: 0.8rem;
             overflow-x: auto;
-            margin: 0.5rem 0 1rem 0;
+            margin: 0.3rem 0 0.8rem 0;
             border: 1px solid rgba(255, 255, 255, 0.04);
         }
 
@@ -812,13 +841,13 @@
 
         .project-overlay .overlay-content .overlay-readme ul,
         .project-overlay .overlay-content .overlay-readme ol {
-            padding-left: 2rem;
-            margin: 0.5rem 0 1rem 0;
+            padding-left: 1.5rem;
+            margin: 0.3rem 0 0.8rem 0;
         }
 
         .project-overlay .overlay-content .overlay-readme li {
-            margin: 0.3rem 0;
-            line-height: 1.6;
+            margin: 0.2rem 0;
+            line-height: 1.5;
         }
 
         .project-overlay .overlay-content .overlay-readme a {
@@ -851,7 +880,7 @@
         .project-overlay .overlay-content .overlay-readme table th,
         .project-overlay .overlay-content .overlay-readme table td {
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 0.5rem 0.8rem;
+            padding: 0.4rem 0.6rem;
             text-align: left;
         }
 
@@ -868,7 +897,7 @@
         .project-overlay .overlay-content .overlay-readme hr {
             border: none;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
-            margin: 1.5rem 0;
+            margin: 1rem 0;
         }
 
         .project-overlay .overlay-content .overlay-readme strong {
@@ -876,212 +905,17 @@
         }
 
         .project-overlay .overlay-content .overlay-readme p {
-            margin: 0.5rem 0;
-            line-height: 1.6;
+            margin: 0.3rem 0;
+            line-height: 1.5;
         }
 
         .project-overlay .overlay-content .overlay-loading {
             text-align: center;
-            padding: 4rem;
+            padding: 3rem;
             color: rgba(200, 210, 215, 0.3);
         }
 
         .project-overlay .overlay-content .overlay-loading .spinner {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-top-color: #ffffff;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-bottom: 1rem;
-        }
-
-        /* ===== BLOG OVERLAY - FULL SCREEN ===== */
-        .blog-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            overflow-y: auto;
-            padding: 0;
-            backdrop-filter: blur(10px);
-        }
-
-        .blog-overlay.active {
-            display: block;
-        }
-
-        .blog-overlay .close-btn {
-            position: fixed;
-            top: 1.5rem;
-            right: 2rem;
-            font-size: 2rem;
-            color: rgba(200, 210, 215, 0.5);
-            cursor: pointer;
-            transition: color 0.3s;
-            z-index: 1001;
-            font-family: 'Space Mono', monospace;
-            background: none;
-            border: none;
-        }
-
-        .blog-overlay .close-btn:hover {
-            color: #ffffff;
-        }
-
-        .blog-overlay .blog-content {
-            max-width: 100%;
-            width: 100%;
-            min-height: 100vh;
-            margin: 0;
-            background: rgba(18, 18, 18, 0.95);
-            border: none;
-            padding: 4rem 3rem;
-            border-radius: 0px;
-        }
-
-        .blog-overlay .blog-content .blog-title {
-            font-family: 'Space Mono', monospace;
-            font-size: 2.5rem;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-        }
-
-        .blog-overlay .blog-content .blog-meta {
-            color: rgba(200, 210, 215, 0.3);
-            font-family: 'Space Mono', monospace;
-            font-size: 0.8rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .blog-overlay .blog-content .blog-body {
-            color: rgba(200, 210, 215, 0.8);
-            font-size: 1rem;
-            line-height: 1.8;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-family: 'Space Grotesk', sans-serif;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .blog-overlay .blog-content .blog-body h1,
-        .blog-overlay .blog-content .blog-body h2,
-        .blog-overlay .blog-content .blog-body h3 {
-            color: #ffffff;
-            margin: 1.5rem 0 0.5rem 0;
-            font-family: 'Space Mono', monospace;
-        }
-
-        .blog-overlay .blog-content .blog-body h1 { font-size: 2rem; }
-        .blog-overlay .blog-content .blog-body h2 { font-size: 1.6rem; }
-        .blog-overlay .blog-content .blog-body h3 { font-size: 1.3rem; }
-
-        .blog-overlay .blog-content .blog-body code {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 0.1rem 0.3rem;
-            border-radius: 2px;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.85rem;
-            color: #6effe0;
-        }
-
-        .blog-overlay .blog-content .blog-body pre {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 1rem;
-            overflow-x: auto;
-            margin: 0.5rem 0 1rem 0;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .blog-overlay .blog-content .blog-body pre code {
-            background: none;
-            padding: 0;
-            color: rgba(200, 210, 215, 0.7);
-        }
-
-        .blog-overlay .blog-content .blog-body ul,
-        .blog-overlay .blog-content .blog-body ol {
-            padding-left: 2rem;
-            margin: 0.5rem 0 1rem 0;
-        }
-
-        .blog-overlay .blog-content .blog-body li {
-            margin: 0.3rem 0;
-            line-height: 1.6;
-        }
-
-        .blog-overlay .blog-content .blog-body a {
-            color: #6effe0;
-            text-decoration: none;
-        }
-
-        .blog-overlay .blog-content .blog-body a:hover {
-            text-decoration: underline;
-        }
-
-        .blog-overlay .blog-content .blog-body blockquote {
-            border-left: 3px solid rgba(110, 255, 224, 0.3);
-            padding-left: 1rem;
-            margin: 0.5rem 0;
-            color: rgba(200, 210, 215, 0.5);
-        }
-
-        .blog-overlay .blog-content .blog-body img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .blog-overlay .blog-content .blog-body table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0.5rem 0;
-        }
-
-        .blog-overlay .blog-content .blog-body table th,
-        .blog-overlay .blog-content .blog-body table td {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 0.5rem 0.8rem;
-            text-align: left;
-        }
-
-        .blog-overlay .blog-content .blog-body table th {
-            background: rgba(255, 255, 255, 0.05);
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        .blog-overlay .blog-content .blog-body table td {
-            color: rgba(200, 210, 215, 0.7);
-        }
-
-        .blog-overlay .blog-content .blog-body hr {
-            border: none;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            margin: 1.5rem 0;
-        }
-
-        .blog-overlay .blog-content .blog-body strong {
-            color: #ffffff;
-        }
-
-        .blog-overlay .blog-content .blog-body p {
-            margin: 0.5rem 0;
-            line-height: 1.8;
-        }
-
-        .blog-overlay .blog-content .blog-loading {
-            text-align: center;
-            padding: 4rem;
-            color: rgba(200, 210, 215, 0.3);
-        }
-
-        .blog-overlay .blog-content .blog-loading .spinner {
             display: inline-block;
             width: 30px;
             height: 30px;
@@ -1518,7 +1352,7 @@
             }
 
             .navbar .nav-logo img {
-                height: 32px;
+                height: 28px;
             }
 
             .hero {
@@ -1608,17 +1442,10 @@
                 padding: 2rem 1.2rem;
             }
             .project-overlay .overlay-content {
-                padding: 2rem 1.5rem;
+                padding: 1.5rem;
+                margin: 1rem auto;
             }
             .project-overlay .close-btn {
-                top: 1rem;
-                right: 1.5rem;
-                font-size: 1.5rem;
-            }
-            .blog-overlay .blog-content {
-                padding: 2rem 1.5rem;
-            }
-            .blog-overlay .close-btn {
                 top: 1rem;
                 right: 1.5rem;
                 font-size: 1.5rem;
@@ -1660,16 +1487,11 @@
                 -webkit-line-clamp: 1;
             }
             .project-overlay .overlay-content {
-                padding: 1.5rem 1rem;
+                padding: 1rem;
+                margin: 0.5rem auto;
             }
             .project-overlay .overlay-content h1 {
                 font-size: 1.4rem;
-            }
-            .blog-overlay .blog-content {
-                padding: 1.5rem 1rem;
-            }
-            .blog-overlay .blog-content .blog-title {
-                font-size: 1.6rem;
             }
             .hero .hero-description {
                 font-size: 0.9rem;
@@ -1682,6 +1504,7 @@
 </head>
 <body>
     <div class="page-wrapper">
+        <!-- ===== BACKGROUND IMAGE: FULL PAGE ===== -->
         <div class="page-bg"></div>
 
         <!-- ===== NAVIGATION ===== -->
@@ -1908,7 +1731,7 @@
                     <div class="blog-preview-grid" id="blogPreviewGrid">
                         <div style="grid-column:1/-1; text-align:center; padding:2rem; color:rgba(200,210,215,0.3); font-family:'Space Mono',monospace;">⏳ loading posts...</div>
                     </div>
-                    <a href="#" class="view-all-link" id="viewAllBlog">view all →</a>
+                    <a href="Blog/" class="view-all-link">view all →</a>
                 </div>
             </div>
         </section>
@@ -1977,22 +1800,11 @@
 
         <!-- ===== PROJECT OVERLAY ===== -->
         <div class="project-overlay" id="projectOverlay">
-            <button class="close-btn" id="closeProjectOverlay">✕</button>
-            <div class="overlay-content" id="projectOverlayContent">
+            <button class="close-btn" id="closeOverlay">✕</button>
+            <div class="overlay-content" id="overlayContent">
                 <div class="overlay-loading">
                     <div class="spinner"></div>
                     <p>Loading project details...</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== BLOG OVERLAY ===== -->
-        <div class="blog-overlay" id="blogOverlay">
-            <button class="close-btn" id="closeBlogOverlay">✕</button>
-            <div class="blog-content" id="blogOverlayContent">
-                <div class="blog-loading">
-                    <div class="spinner"></div>
-                    <p>Loading blog post...</p>
                 </div>
             </div>
         </div>
@@ -2213,10 +2025,10 @@
             document.getElementById('followerCount').textContent = followers;
         }
 
-        // ===== PROJECT OVERLAY - ONLY README =====
-        const projectOverlay = document.getElementById('projectOverlay');
-        const projectOverlayContent = document.getElementById('projectOverlayContent');
-        const closeProjectOverlay = document.getElementById('closeProjectOverlay');
+        // ===== PROJECT OVERLAY =====
+        const overlay = document.getElementById('projectOverlay');
+        const overlayContent = document.getElementById('overlayContent');
+        const closeOverlay = document.getElementById('closeOverlay');
 
         function renderMarkdown(text) {
             if (!text) return 'No README available.';
@@ -2291,11 +2103,25 @@
             }
         }
 
+        async function fetchRepoDescription(repo) {
+            try {
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${repo}`);
+                if (!response.ok) {
+                    return 'No description available.';
+                }
+                const data = await response.json();
+                return data.description || 'No description available.';
+            } catch (error) {
+                console.error('Error fetching repo description:', error);
+                return 'No description available.';
+            }
+        }
+
         async function openProjectOverlay(repo) {
-            projectOverlay.classList.add('active');
+            overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
             
-            projectOverlayContent.innerHTML = `
+            overlayContent.innerHTML = `
                 <div class="overlay-loading">
                     <div class="spinner"></div>
                     <p>Loading project details...</p>
@@ -2303,15 +2129,22 @@
             `;
 
             try {
-                const readme = await fetchReadme(repo);
+                const [description, readme] = await Promise.all([
+                    fetchRepoDescription(repo),
+                    fetchReadme(repo)
+                ]);
+
                 const readmeHTML = readme ? renderMarkdown(readme) : 'No README available.';
 
-                projectOverlayContent.innerHTML = `
+                overlayContent.innerHTML = `
+                    <div class="overlay-repo">${GITHUB_USERNAME}/${repo}</div>
+                    <div class="overlay-description">${description}</div>
                     <div class="overlay-readme">${readmeHTML}</div>
                 `;
             } catch (error) {
-                projectOverlayContent.innerHTML = `
-                    <div class="overlay-readme" style="color:rgba(255,100,100,0.5);">Error loading README.</div>
+                overlayContent.innerHTML = `
+                    <div class="overlay-repo">${GITHUB_USERNAME}/${repo}</div>
+                    <div class="overlay-description" style="color:rgba(255,100,100,0.5);">Error loading project details.</div>
                 `;
             }
         }
@@ -2325,148 +2158,21 @@
             });
         });
 
-        closeProjectOverlay.addEventListener('click', () => {
-            projectOverlay.classList.remove('active');
+        closeOverlay.addEventListener('click', () => {
+            overlay.classList.remove('active');
             document.body.style.overflow = '';
         });
 
-        projectOverlay.addEventListener('click', (e) => {
-            if (e.target === projectOverlay) {
-                projectOverlay.classList.remove('active');
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
                 document.body.style.overflow = '';
             }
         });
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                if (projectOverlay.classList.contains('active')) {
-                    projectOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-                if (blogOverlay.classList.contains('active')) {
-                    blogOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            }
-        });
-
-        // ===== BLOG OVERLAY =====
-        const blogOverlay = document.getElementById('blogOverlay');
-        const blogOverlayContent = document.getElementById('blogOverlayContent');
-        const closeBlogOverlay = document.getElementById('closeBlogOverlay');
-
-        function renderBlogMarkdown(text) {
-            if (!text) return 'No content available.';
-            
-            let html = text;
-            
-            // Headers
-            html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-            html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-            html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-            
-            // Bold/Italic
-            html = html.replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>');
-            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-            
-            // Code blocks
-            html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
-            html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-            
-            // Links
-            html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-            
-            // Lists
-            html = html.replace(/^[\*\-] (.*$)/gim, '<li>$1</li>');
-            
-            // Blockquotes
-            html = html.replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>');
-            
-            // Tables
-            html = html.replace(/\|(.+)\|/g, function(match) {
-                const cells = match.split('|').filter(c => c.trim());
-                if (cells.length === 0) return match;
-                const isHeader = match.includes('---');
-                if (isHeader) return '';
-                const cellHtml = cells.map(c => `<td>${c.trim()}</td>`).join('');
-                return `<tr>${cellHtml}</tr>`;
-            });
-            
-            html = html.replace(/(<tr>.*<\/tr>)/g, function(match) {
-                return `<table><tbody>${match}</tbody></table>`;
-            });
-            
-            html = html.replace(/<table><tbody><table>/g, '<table><tbody>');
-            html = html.replace(/<\/table><\/tbody><\/table>/g, '</tbody></table>');
-            
-            html = html.replace(/^---$/gim, '<hr>');
-            
-            // Paragraphs
-            html = html.replace(/\n\n/g, '</p><p>');
-            html = html.replace(/\n/g, '<br>');
-            
-            if (!html.startsWith('<')) {
-                html = '<p>' + html + '</p>';
-            }
-            
-            return html;
-        }
-
-        async function openBlogPost(post) {
-            blogOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            blogOverlayContent.innerHTML = `
-                <div class="blog-loading">
-                    <div class="spinner"></div>
-                    <p>Loading blog post...</p>
-                </div>
-            `;
-
-            try {
-                let content = 'No content available.';
-                
-                if (post.file) {
-                    try {
-                        const response = await fetch(post.file);
-                        if (response.ok) {
-                            content = await response.text();
-                        }
-                    } catch (e) {
-                        console.error('Error fetching blog file:', e);
-                    }
-                } else if (post.content) {
-                    content = post.content;
-                } else if (post.body) {
-                    content = post.body;
-                }
-                
-                const renderedContent = renderBlogMarkdown(content);
-                
-                blogOverlayContent.innerHTML = `
-                    <div class="blog-title">${post.title || 'Untitled'}</div>
-                    <div class="blog-meta">${post.displayDate || post.date || ''} ${post.tag ? '· ' + post.tag : ''}</div>
-                    <div class="blog-body">${renderedContent}</div>
-                `;
-            } catch (error) {
-                console.error('Error rendering blog post:', error);
-                blogOverlayContent.innerHTML = `
-                    <div class="blog-title">${post.title || 'Untitled'}</div>
-                    <div class="blog-meta">${post.displayDate || post.date || ''}</div>
-                    <div class="blog-body" style="color:rgba(255,100,100,0.5);">Error loading content.</div>
-                `;
-            }
-        }
-
-        closeBlogOverlay.addEventListener('click', () => {
-            blogOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-
-        blogOverlay.addEventListener('click', (e) => {
-            if (e.target === blogOverlay) {
-                blogOverlay.classList.remove('active');
+            if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                overlay.classList.remove('active');
                 document.body.style.overflow = '';
             }
         });
@@ -2488,7 +2194,6 @@
 
         async function renderBlogPreview() {
             const grid = document.getElementById('blogPreviewGrid');
-            const viewAllLink = document.getElementById('viewAllBlog');
             const posts = await fetchBlogPosts();
 
             if (posts.length === 0) {
@@ -2498,14 +2203,13 @@
                         <p>No posts yet</p>
                     </div>
                 `;
-                viewAllLink.style.display = 'none';
                 return;
             }
 
             const recentPost = posts.slice(0, 1);
 
-            grid.innerHTML = recentPost.map((post, index) => `
-                <div class="blog-preview-card" data-post-index="${index}">
+            grid.innerHTML = recentPost.map(post => `
+                <div class="blog-preview-card" onclick="window.location.href='Blog/'">
                     <div class="preview-image">
                         ${post.cover ? `<img src="${post.cover}" alt="${post.title}" />` : `<span style="font-size:3rem;opacity:0.3;">${post.icon || '📄'}</span>`}
                     </div>
@@ -2517,23 +2221,6 @@
                     </div>
                 </div>
             `).join('');
-
-            // Click handler for blog preview card
-            document.querySelector('.blog-preview-card')?.addEventListener('click', function() {
-                const index = parseInt(this.dataset.postIndex);
-                if (posts[index]) {
-                    openBlogPost(posts[index]);
-                }
-            });
-
-            // View all link - open first post
-            viewAllLink.style.display = 'inline-block';
-            viewAllLink.onclick = function(e) {
-                e.preventDefault();
-                if (posts.length > 0) {
-                    openBlogPost(posts[0]);
-                }
-            };
         }
 
         // ===== SMOOTH SCROLL =====
