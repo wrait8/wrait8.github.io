@@ -23,7 +23,6 @@
             overflow-x: hidden;
         }
 
-        /* ===== FULL PAGE BACKGROUND WRAPPER ===== */
         .page-wrapper {
             position: relative;
             min-height: 100vh;
@@ -31,7 +30,6 @@
             overflow: hidden;
         }
 
-        /* ----- BACKGROUND IMAGE: FULL PAGE ----- */
         .page-bg {
             position: fixed;
             top: 0;
@@ -45,7 +43,6 @@
             z-index: 0;
         }
 
-        /* fallback gradient */
         .page-bg::after {
             content: '';
             position: absolute;
@@ -57,7 +54,6 @@
             pointer-events: none;
         }
 
-        /* dark overlay */
         .page-wrapper::before {
             content: '';
             position: fixed;
@@ -67,7 +63,6 @@
             backdrop-filter: blur(1px);
         }
 
-        /* ===== NAVIGATION ===== */
         .navbar {
             position: fixed;
             top: 0;
@@ -87,13 +82,6 @@
         .navbar-scrolled {
             background: rgba(11, 12, 14, 0.95);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .navbar .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            text-decoration: none;
         }
 
         .navbar .nav-logo img {
@@ -222,7 +210,6 @@
             transform: rotate(-45deg) translate(5px, -5px);
         }
 
-        /* ===== HERO SECTION ===== */
         .hero {
             position: relative;
             z-index: 10;
@@ -334,7 +321,6 @@
             margin-top: 0.2rem;
         }
 
-        /* ===== PROJECTS SECTION ===== */
         .projects-section {
             position: relative;
             z-index: 10;
@@ -518,7 +504,6 @@
             opacity: 1;
         }
 
-        /* ===== RELEASES TIMELINE ===== */
         .releases-section {
             position: relative;
             z-index: 10;
@@ -732,7 +717,6 @@
             min-width: 300px;
         }
 
-        /* ===== PROJECT OVERLAY ===== */
         .project-overlay {
             display: none;
             position: fixed;
@@ -926,7 +910,7 @@
             margin-bottom: 1rem;
         }
 
-        /* ===== BLOG PREVIEW SECTION ===== */
+        /* ===== BLOG PREVIEW SECTION - FIXED RESPONSIVE ===== */
         .blog-preview-section {
             position: relative;
             z-index: 10;
@@ -1381,11 +1365,14 @@
             .project-image {
                 height: 160px;
             }
+            
+            /* Blog responsive fixes */
             .blog-preview-container {
                 flex-direction: column;
                 align-items: center;
                 gap: 1.5rem;
                 min-height: auto;
+                padding: 0 0.5rem;
             }
             .blog-preview-ascii {
                 display: none;
@@ -1398,10 +1385,24 @@
             }
             .blog-preview-grid {
                 max-width: 100%;
+                width: 100%;
+            }
+            .blog-preview-card .preview-image {
+                height: 140px;
+            }
+            .blog-preview-card .preview-body {
+                padding: 1rem 1.2rem 1.2rem;
+            }
+            .blog-preview-card .preview-body h3 {
+                font-size: 1rem;
+            }
+            .blog-preview-card .preview-body .preview-excerpt {
+                font-size: 0.8rem;
             }
             .blog-preview-posts .view-all-link {
                 align-self: center;
             }
+            
             .community-grid {
                 grid-template-columns: 1fr;
             }
@@ -1439,7 +1440,7 @@
                 padding: 3rem 1.2rem;
             }
             .blog-preview-section {
-                padding: 2rem 1.2rem;
+                padding: 2rem 1rem;
             }
             .project-overlay .overlay-content {
                 padding: 1.5rem;
@@ -1451,6 +1452,7 @@
                 font-size: 1.5rem;
             }
         }
+        
         @media (max-width: 480px) {
             .hero .main-title {
                 font-size: 2.8rem;
@@ -1465,9 +1467,32 @@
             .project-image {
                 height: 140px;
             }
+            
+            /* Blog mobile fixes */
             .blog-preview-card .preview-image {
                 height: 120px;
             }
+            .blog-preview-card .preview-body {
+                padding: 0.8rem 1rem 1rem;
+            }
+            .blog-preview-card .preview-body h3 {
+                font-size: 0.9rem;
+            }
+            .blog-preview-card .preview-body .preview-excerpt {
+                font-size: 0.75rem;
+                -webkit-line-clamp: 2;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            .blog-preview-card .preview-body .preview-tag {
+                font-size: 0.5rem;
+                padding: 0.1rem 0.5rem;
+            }
+            .blog-preview-card .preview-body .preview-date {
+                font-size: 0.5rem;
+            }
+            
             .ascii-art {
                 font-size: 0.6rem;
                 white-space: pre-wrap;
@@ -1504,7 +1529,6 @@
 </head>
 <body>
     <div class="page-wrapper">
-        <!-- ===== BACKGROUND IMAGE: FULL PAGE ===== -->
         <div class="page-bg"></div>
 
         <!-- ===== NAVIGATION ===== -->
@@ -2208,19 +2232,23 @@
 
             const recentPost = posts.slice(0, 1);
 
-            grid.innerHTML = recentPost.map(post => `
-                <div class="blog-preview-card" onclick="window.location.href='Blog/'">
-                    <div class="preview-image">
-                        ${post.cover ? `<img src="${post.cover}" alt="${post.title}" />` : `<span style="font-size:3rem;opacity:0.3;">${post.icon || '📄'}</span>`}
+            grid.innerHTML = recentPost.map((post, index) => {
+                // Build the URL for this specific post
+                const postUrl = post.url || `Blog/post-${index + 1}.html`;
+                return `
+                    <div class="blog-preview-card" onclick="window.location.href='${postUrl}'">
+                        <div class="preview-image">
+                            ${post.cover ? `<img src="${post.cover}" alt="${post.title}" />` : `<span style="font-size:3rem;opacity:0.3;">${post.icon || '📄'}</span>`}
+                        </div>
+                        <div class="preview-body">
+                            <span class="preview-tag">${post.tag || 'General'}</span>
+                            <h3>${post.title}</h3>
+                            <div class="preview-excerpt">${post.excerpt || ''}</div>
+                            <div class="preview-date">${post.displayDate || post.date || ''}</div>
+                        </div>
                     </div>
-                    <div class="preview-body">
-                        <span class="preview-tag">${post.tag || 'General'}</span>
-                        <h3>${post.title}</h3>
-                        <div class="preview-excerpt">${post.excerpt || ''}</div>
-                        <div class="preview-date">${post.displayDate || post.date || ''}</div>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         // ===== SMOOTH SCROLL =====
