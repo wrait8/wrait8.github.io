@@ -910,7 +910,198 @@
             margin-bottom: 1rem;
         }
 
-        /* ===== BLOG PREVIEW SECTION - FIXED RESPONSIVE ===== */
+        .blog-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .blog-overlay.active {
+            display: block;
+        }
+
+        .blog-overlay .close-btn {
+            position: fixed;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: rgba(200, 210, 215, 0.5);
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 1001;
+            font-family: 'Space Mono', monospace;
+            background: none;
+            border: none;
+        }
+
+        .blog-overlay .close-btn:hover {
+            color: #ffffff;
+        }
+
+        .blog-overlay .blog-content {
+            max-width: 900px;
+            margin: 3rem auto;
+            background: rgba(18, 18, 18, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 3rem;
+            border-radius: 0px;
+        }
+
+        .blog-overlay .blog-content .blog-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-overlay .blog-content .blog-meta {
+            color: rgba(200, 210, 215, 0.3);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-overlay .blog-content .blog-body {
+            color: rgba(200, 210, 215, 0.8);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Space Grotesk', sans-serif;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .blog-overlay .blog-content .blog-body h1,
+        .blog-overlay .blog-content .blog-body h2,
+        .blog-overlay .blog-content .blog-body h3 {
+            color: #ffffff;
+            margin: 1.5rem 0 0.5rem 0;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .blog-overlay .blog-content .blog-body h1 { font-size: 1.8rem; }
+        .blog-overlay .blog-content .blog-body h2 { font-size: 1.4rem; }
+        .blog-overlay .blog-content .blog-body h3 { font-size: 1.1rem; }
+
+        .blog-overlay .blog-content .blog-body code {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.1rem 0.3rem;
+            border-radius: 2px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: #6effe0;
+        }
+
+        .blog-overlay .blog-content .blog-body pre {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 0.5rem 0 1rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .blog-overlay .blog-content .blog-body pre code {
+            background: none;
+            padding: 0;
+            color: rgba(200, 210, 215, 0.7);
+        }
+
+        .blog-overlay .blog-content .blog-body ul,
+        .blog-overlay .blog-content .blog-body ol {
+            padding-left: 1.5rem;
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        .blog-overlay .blog-content .blog-body li {
+            margin: 0.3rem 0;
+            line-height: 1.6;
+        }
+
+        .blog-overlay .blog-content .blog-body a {
+            color: #6effe0;
+            text-decoration: none;
+        }
+
+        .blog-overlay .blog-content .blog-body a:hover {
+            text-decoration: underline;
+        }
+
+        .blog-overlay .blog-content .blog-body blockquote {
+            border-left: 3px solid rgba(110, 255, 224, 0.3);
+            padding-left: 1rem;
+            margin: 0.5rem 0;
+            color: rgba(200, 210, 215, 0.5);
+        }
+
+        .blog-overlay .blog-content .blog-body img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .blog-overlay .blog-content .blog-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.5rem 0;
+        }
+
+        .blog-overlay .blog-content .blog-body table th,
+        .blog-overlay .blog-content .blog-body table td {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 0.8rem;
+            text-align: left;
+        }
+
+        .blog-overlay .blog-content .blog-body table th {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .blog-overlay .blog-content .blog-body table td {
+            color: rgba(200, 210, 215, 0.7);
+        }
+
+        .blog-overlay .blog-content .blog-body hr {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 1.5rem 0;
+        }
+
+        .blog-overlay .blog-content .blog-body strong {
+            color: #ffffff;
+        }
+
+        .blog-overlay .blog-content .blog-body p {
+            margin: 0.5rem 0;
+            line-height: 1.8;
+        }
+
+        .blog-overlay .blog-content .blog-loading {
+            text-align: center;
+            padding: 3rem;
+            color: rgba(200, 210, 215, 0.3);
+        }
+
+        .blog-overlay .blog-content .blog-loading .spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 1rem;
+        }
+
         .blog-preview-section {
             position: relative;
             z-index: 10;
@@ -1069,7 +1260,6 @@
             border-bottom-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* ===== COMMUNITY SECTION ===== */
         .community-section {
             position: relative;
             z-index: 10;
@@ -1164,7 +1354,6 @@
             border-color: rgba(255, 255, 255, 0.15);
         }
 
-        /* ===== FOOTER ===== */
         .footer-section {
             position: relative;
             z-index: 10;
@@ -1366,7 +1555,6 @@
                 height: 160px;
             }
             
-            /* Blog responsive fixes */
             .blog-preview-container {
                 flex-direction: column;
                 align-items: center;
@@ -1451,6 +1639,15 @@
                 right: 1.5rem;
                 font-size: 1.5rem;
             }
+            .blog-overlay .blog-content {
+                padding: 1.5rem;
+                margin: 1rem auto;
+            }
+            .blog-overlay .close-btn {
+                top: 1rem;
+                right: 1.5rem;
+                font-size: 1.5rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1468,7 +1665,6 @@
                 height: 140px;
             }
             
-            /* Blog mobile fixes */
             .blog-preview-card .preview-image {
                 height: 120px;
             }
@@ -1518,6 +1714,13 @@
             .project-overlay .overlay-content h1 {
                 font-size: 1.4rem;
             }
+            .blog-overlay .blog-content {
+                padding: 1rem;
+                margin: 0.5rem auto;
+            }
+            .blog-overlay .blog-content .blog-title {
+                font-size: 1.4rem;
+            }
             .hero .hero-description {
                 font-size: 0.9rem;
             }
@@ -1531,7 +1734,6 @@
     <div class="page-wrapper">
         <div class="page-bg"></div>
 
-        <!-- ===== NAVIGATION ===== -->
         <nav class="navbar" id="navbar">
             <a href="#" class="nav-logo">
                 <img src="Images/wraith.png" alt="WRAITH" />
@@ -1564,7 +1766,6 @@
             </button>
         </nav>
 
-        <!-- ===== HERO SECTION ===== -->
         <section class="hero">
             <div class="hero-content">
                 <span class="hero-badge">◈ open source collective</span>
@@ -1588,7 +1789,6 @@
             </div>
         </section>
 
-        <!-- ===== PROJECTS SECTION ===== -->
         <section class="projects-section" id="projects">
             <div class="projects-container">
                 <div class="projects-header">
@@ -1596,7 +1796,6 @@
                     <p>open‑source tools from our arsenal</p>
                 </div>
                 <div class="projects-grid">
-                    <!-- Project 1: VoidRecon -->
                     <div class="project-card" data-repo="VoidRecon">
                         <div class="project-image">
                             <img src="Images/voidrecon.png" alt="VoidRecon" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
@@ -1620,7 +1819,6 @@
                         </div>
                     </div>
 
-                    <!-- Project 2: SkyEye -->
                     <div class="project-card" data-repo="SkyEye">
                         <div class="project-image">
                             <img src="Images/skyeye.png" alt="SkyEye" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
@@ -1643,7 +1841,6 @@
                         </div>
                     </div>
 
-                    <!-- Project 3: WCli -->
                     <div class="project-card" data-repo="WCli">
                         <div class="project-image">
                             <img src="Images/wcli.png" alt="WCli" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
@@ -1666,7 +1863,6 @@
                         </div>
                     </div>
 
-                    <!-- Project 4: WFlasher -->
                     <div class="project-card" data-repo="WFlasher">
                         <div class="project-image">
                             <img src="Images/wflasher.png" alt="WFlasher" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
@@ -1689,7 +1885,6 @@
                         </div>
                     </div>
 
-                    <!-- Project 5: WSerial -->
                     <div class="project-card" data-repo="WSerial">
                         <div class="project-image">
                             <img src="Images/wserial.png" alt="WSerial" onerror="this.classList.add('error'); this.parentElement.querySelector('.fallback-icon').classList.add('show');" />
@@ -1715,7 +1910,6 @@
             </div>
         </section>
 
-        <!-- ===== RELEASES TIMELINE ===== -->
         <section class="releases-section" id="releases">
             <div class="releases-container">
                 <div class="releases-header">
@@ -1733,7 +1927,6 @@
             </div>
         </section>
 
-        <!-- ===== BLOG PREVIEW SECTION ===== -->
         <section class="blog-preview-section" id="blog">
             <div class="section-bg"></div>
             <div class="blog-preview-container">
@@ -1760,7 +1953,6 @@
             </div>
         </section>
 
-        <!-- ===== COMMUNITY SECTION ===== -->
         <section class="community-section" id="community">
             <div class="community-container">
                 <div class="community-header">
@@ -1784,7 +1976,6 @@
             </div>
         </section>
 
-        <!-- ===== FOOTER ===== -->
         <footer class="footer-section">
             <div class="footer-container">
                 <div class="ascii-art-wrapper">
@@ -1822,13 +2013,22 @@
             </div>
         </footer>
 
-        <!-- ===== PROJECT OVERLAY ===== -->
         <div class="project-overlay" id="projectOverlay">
-            <button class="close-btn" id="closeOverlay">✕</button>
-            <div class="overlay-content" id="overlayContent">
+            <button class="close-btn" id="closeProjectOverlay">✕</button>
+            <div class="overlay-content" id="projectOverlayContent">
                 <div class="overlay-loading">
                     <div class="spinner"></div>
                     <p>Loading project details...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-overlay" id="blogOverlay">
+            <button class="close-btn" id="closeBlogOverlay">✕</button>
+            <div class="blog-content" id="blogOverlayContent">
+                <div class="blog-loading">
+                    <div class="spinner"></div>
+                    <p>Loading blog post...</p>
                 </div>
             </div>
         </div>
@@ -2050,9 +2250,9 @@
         }
 
         // ===== PROJECT OVERLAY =====
-        const overlay = document.getElementById('projectOverlay');
-        const overlayContent = document.getElementById('overlayContent');
-        const closeOverlay = document.getElementById('closeOverlay');
+        const projectOverlay = document.getElementById('projectOverlay');
+        const projectOverlayContent = document.getElementById('projectOverlayContent');
+        const closeProjectOverlay = document.getElementById('closeProjectOverlay');
 
         function renderMarkdown(text) {
             if (!text) return 'No README available.';
@@ -2142,10 +2342,10 @@
         }
 
         async function openProjectOverlay(repo) {
-            overlay.classList.add('active');
+            projectOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
             
-            overlayContent.innerHTML = `
+            projectOverlayContent.innerHTML = `
                 <div class="overlay-loading">
                     <div class="spinner"></div>
                     <p>Loading project details...</p>
@@ -2160,13 +2360,13 @@
 
                 const readmeHTML = readme ? renderMarkdown(readme) : 'No README available.';
 
-                overlayContent.innerHTML = `
+                projectOverlayContent.innerHTML = `
                     <div class="overlay-repo">${GITHUB_USERNAME}/${repo}</div>
                     <div class="overlay-description">${description}</div>
                     <div class="overlay-readme">${readmeHTML}</div>
                 `;
             } catch (error) {
-                overlayContent.innerHTML = `
+                projectOverlayContent.innerHTML = `
                     <div class="overlay-repo">${GITHUB_USERNAME}/${repo}</div>
                     <div class="overlay-description" style="color:rgba(255,100,100,0.5);">Error loading project details.</div>
                 `;
@@ -2182,22 +2382,134 @@
             });
         });
 
-        closeOverlay.addEventListener('click', () => {
-            overlay.classList.remove('active');
+        closeProjectOverlay.addEventListener('click', () => {
+            projectOverlay.classList.remove('active');
             document.body.style.overflow = '';
         });
 
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                overlay.classList.remove('active');
+        projectOverlay.addEventListener('click', (e) => {
+            if (e.target === projectOverlay) {
+                projectOverlay.classList.remove('active');
                 document.body.style.overflow = '';
             }
         });
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && overlay.classList.contains('active')) {
-                overlay.classList.remove('active');
+        // ===== BLOG OVERLAY =====
+        const blogOverlay = document.getElementById('blogOverlay');
+        const blogOverlayContent = document.getElementById('blogOverlayContent');
+        const closeBlogOverlay = document.getElementById('closeBlogOverlay');
+
+        function renderBlogContent(text) {
+            if (!text) return 'No content available.';
+            
+            let html = text;
+            
+            // Headers
+            html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+            html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+            html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+            
+            // Bold/Italic
+            html = html.replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>');
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            
+            // Code blocks
+            html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+            html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+            
+            // Links
+            html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+            
+            // Lists
+            html = html.replace(/^[\*\-] (.*$)/gim, '<li>$1</li>');
+            
+            // Blockquotes
+            html = html.replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>');
+            
+            // Tables
+            html = html.replace(/\|(.+)\|/g, function(match) {
+                const cells = match.split('|').filter(c => c.trim());
+                if (cells.length === 0) return match;
+                const isHeader = match.includes('---');
+                if (isHeader) return '';
+                const cellHtml = cells.map(c => `<td>${c.trim()}</td>`).join('');
+                return `<tr>${cellHtml}</tr>`;
+            });
+            
+            html = html.replace(/(<tr>.*<\/tr>)/g, function(match) {
+                return `<table><tbody>${match}</tbody></table>`;
+            });
+            
+            html = html.replace(/<table><tbody><table>/g, '<table><tbody>');
+            html = html.replace(/<\/table><\/tbody><\/table>/g, '</tbody></table>');
+            
+            html = html.replace(/^---$/gim, '<hr>');
+            
+            // Paragraphs
+            html = html.replace(/\n\n/g, '</p><p>');
+            html = html.replace(/\n/g, '<br>');
+            
+            if (!html.startsWith('<')) {
+                html = '<p>' + html + '</p>';
+            }
+            
+            return html;
+        }
+
+        async function openBlogPost(post) {
+            blogOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            blogOverlayContent.innerHTML = `
+                <div class="blog-loading">
+                    <div class="spinner"></div>
+                    <p>Loading blog post...</p>
+                </div>
+            `;
+
+            try {
+                let content = post.content || 'No content available.';
+                const renderedContent = renderBlogContent(content);
+                
+                blogOverlayContent.innerHTML = `
+                    <div class="blog-title">${post.title || 'Untitled'}</div>
+                    <div class="blog-meta">${post.displayDate || post.date || ''} ${post.tag ? '· ' + post.tag : ''}</div>
+                    <div class="blog-body">${renderedContent}</div>
+                `;
+            } catch (error) {
+                console.error('Error rendering blog post:', error);
+                blogOverlayContent.innerHTML = `
+                    <div class="blog-title">${post.title || 'Untitled'}</div>
+                    <div class="blog-meta">${post.displayDate || post.date || ''}</div>
+                    <div class="blog-body" style="color:rgba(255,100,100,0.5);">Error loading content.</div>
+                `;
+            }
+        }
+
+        closeBlogOverlay.addEventListener('click', () => {
+            blogOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        blogOverlay.addEventListener('click', (e) => {
+            if (e.target === blogOverlay) {
+                blogOverlay.classList.remove('active');
                 document.body.style.overflow = '';
+            }
+        });
+
+        // Escape key closes both overlays
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (projectOverlay.classList.contains('active')) {
+                    projectOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+                if (blogOverlay.classList.contains('active')) {
+                    blogOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
             }
         });
 
@@ -2232,23 +2544,27 @@
 
             const recentPost = posts.slice(0, 1);
 
-            grid.innerHTML = recentPost.map((post, index) => {
-                // Build the URL for this specific post
-                const postUrl = post.url || `Blog/post-${index + 1}.html`;
-                return `
-                    <div class="blog-preview-card" onclick="window.location.href='${postUrl}'">
-                        <div class="preview-image">
-                            ${post.cover ? `<img src="${post.cover}" alt="${post.title}" />` : `<span style="font-size:3rem;opacity:0.3;">${post.icon || '📄'}</span>`}
-                        </div>
-                        <div class="preview-body">
-                            <span class="preview-tag">${post.tag || 'General'}</span>
-                            <h3>${post.title}</h3>
-                            <div class="preview-excerpt">${post.excerpt || ''}</div>
-                            <div class="preview-date">${post.displayDate || post.date || ''}</div>
-                        </div>
+            grid.innerHTML = recentPost.map((post, index) => `
+                <div class="blog-preview-card" data-post-index="${index}">
+                    <div class="preview-image">
+                        ${post.cover ? `<img src="${post.cover}" alt="${post.title}" />` : `<span style="font-size:3rem;opacity:0.3;">${post.icon || '📄'}</span>`}
                     </div>
-                `;
-            }).join('');
+                    <div class="preview-body">
+                        <span class="preview-tag">${post.tag || 'General'}</span>
+                        <h3>${post.title}</h3>
+                        <div class="preview-excerpt">${post.excerpt || ''}</div>
+                        <div class="preview-date">${post.displayDate || post.date || ''}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Click handler for blog preview card - opens overlay
+            document.querySelector('.blog-preview-card')?.addEventListener('click', function() {
+                const index = parseInt(this.dataset.postIndex);
+                if (posts[index]) {
+                    openBlogPost(posts[index]);
+                }
+            });
         }
 
         // ===== SMOOTH SCROLL =====
